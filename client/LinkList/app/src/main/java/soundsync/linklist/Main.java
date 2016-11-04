@@ -13,11 +13,13 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /***Onclick for PLAY button***/
     public void selectPlay(View view){                      //method called on "play button" click
-        Intent intent = new Intent(this, PlayPage.class);   //create intent to change to PlayPage (to be written)
-        startActivity(intent);  //go to PlayPage
+        //Intent intent = new Intent(this, PlayPage.class);   //create intent to change to PlayPage (to be written)
+       // startActivity(intent);  //go to PlayPage
     }
 
+    /***Onclick for HOST button***/
     public void selectHost(View view){
         Intent intent = new Intent(this, HostPage.class);   //HostPage.java TO BE WRITTEN
         startActivity(intent);  //go to HostPage

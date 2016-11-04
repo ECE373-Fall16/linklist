@@ -1,0 +1,7 @@
+11-3-16
+-CLIENT	
+added Host/Play buttons to Main.java
+HOST button starts HostPage.java
+HostPage has Play/Pause buttons, plays one hard-coded song
+NOTE: song must be added to res/raw as "song"
+//cpb
