@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="soundsync.linklist.HostPage">
 
+    <!-- PLAY -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,6 +18,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text=">"/>
+
+    <!-- PUASE -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,4 +27,74 @@
         android:layout_below="@id/PlayButton"
         android:layout_centerHorizontal="true"
         android:text="||" />
+
+    <!-- SKIP BACK -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SkipBack"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="back"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SkipFor"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="forward"  />
+
+    <TextView
+        android:text="LinkList Host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:textSize="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:layout_above="@id/PlayButton"
+        android:clickable="false"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title"
+        android:layout_alignRight="@+id/title"
+        android:layout_alignEnd="@+id/title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/currentTime"
+        android:layout_above="@+id/seekBar"
+        android:layout_toLeftOf="@+id/seekBar"
+        android:layout_toStartOf="@+id/seekBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/duration"
+        android:layout_above="@+id/seekBar"
+        android:layout_toRightOf="@+id/seekBar"
+        android:layout_toEndOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/songName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/seekBar"
+        android:paddingBottom="20dp"
+        android:text="Song name Here"/>
+
 </RelativeLayout>

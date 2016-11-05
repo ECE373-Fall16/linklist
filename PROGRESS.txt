@@ -5,3 +5,11 @@ HOST button starts HostPage.java
 HostPage has Play/Pause buttons, plays one hard-coded song
 NOTE: song must be added to res/raw as "song"
 //cpb
+
+11-4-16
+-CLIENT
+- -HostPage
+added skip back/forward buttons; skip forward or back 3 seconds
+added timebar to track song duration
+NOTE: song still must be added to res/raw as "song"
+//cpb
