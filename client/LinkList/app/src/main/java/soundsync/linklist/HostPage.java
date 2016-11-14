@@ -48,7 +48,7 @@ public class HostPage extends AppCompatActivity {
                 play.setEnabled(false);                           //disable play
                 pause.setEnabled(true);                            //enable pause
 
-                name.setText(String.format("Song"));
+                name.setText(String.format("Music courtesy of BenSound"));
 
                 timebar.setMax(mediaPlayer.getDuration());
                 timebar.setProgress(mediaPlayer.getCurrentPosition());

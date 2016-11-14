@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="soundsync.linklist.Main">
 
+
     <Button
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height"
