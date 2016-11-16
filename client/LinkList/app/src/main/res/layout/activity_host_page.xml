@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/SkipBack"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/PauseButton"
         android:layout_alignParentLeft="true"
         android:text="back"
          />
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/SkipFor"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/PauseButton"
         android:layout_alignParentRight="true"
         android:text="forward"  />
 
@@ -103,5 +103,14 @@
         android:layout_above="@id/seekBar"
         android:paddingBottom="20dp"
         android:text="Song name Here"/>
+
+    <Button
+        android:id="@+id/hostQueueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adjust Queue"
+        android:layout_alignParentBottom="true"
+        android:onClick="goToQueue"
+        />
 
 </RelativeLayout>

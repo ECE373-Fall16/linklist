@@ -20,7 +20,7 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 /*-------------------Activity called by HOST button from Main----------------------------------*/
 public class HostPage extends AppCompatActivity {
 
-    private Button play,pause,back,forward;
+    private Button play,pause,back,forward,queue;
     private SeekBar timebar;
     private TextView cur,dur,name,myLobby;
     private MediaPlayer mediaPlayer;
@@ -45,6 +45,7 @@ public class HostPage extends AppCompatActivity {
         dur = (TextView) findViewById(R.id.duration);           //dur = duration
         name = (TextView) findViewById(R.id.songName);          //name = song info
         myLobby = (TextView)findViewById(R.id.myLobby);
+        queue = (Button) findViewById(R.id.hostQueueButton);
 
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
@@ -104,6 +105,15 @@ public class HostPage extends AppCompatActivity {
             }
         });
 
+        queue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(HostPage.this, Queue.class);   //create intent to change to PlayPage (to be written)
+               // startActivity(intent);
+            }
+        });
+
+
 
         dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)mediaPlayer.getDuration())));    //label duration
         cur.setText(String.format("%d sec", mediaPlayer.getCurrentPosition()));          //label current time (only 0 sec for now)
@@ -119,6 +129,7 @@ public class HostPage extends AppCompatActivity {
             hand.postDelayed(this, 100);
         }
     };
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)

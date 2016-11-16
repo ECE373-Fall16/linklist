@@ -21,3 +21,9 @@ changed "play" to "join" for clarity
 added join page. Currently displays duration of current song, and a link to an empty "queue" page to be updated with a song list and vote buttons.
 royalty free song added to res/raw! credit to BenSound.
 //cpb
+
+11-16-16
+-CLIENT
+'join'-side queue page shows queued song titles and vote buttons. This is currently a hard-coded list, and the vote buttons don't do anything yet. Eventually song titles will be sent in string format from server.
+Added a queue button to 'host'-side and moved forward/back buttons. Queue button is currently non-functional, but will lead to a list where songs can be added and queue order adjusted, votes should be visable too. This will eventually end up being a connection to the spotify api.
+//cpb

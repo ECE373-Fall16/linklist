@@ -18,7 +18,7 @@ public class HostConnect extends AppCompatActivity {
 
 
     public void hostPlay(View view){
-        Intent intent = new Intent(this, HostPage.class);   //HostPage.java TO BE WRITTEN
+        Intent intent = new Intent(this, HostPage.class);
         EditText lobby = (EditText) findViewById(R.id.lobbyName);
         EditText size = (EditText) findViewById(R.id.lobbySize);
         String message = lobby.getText().toString();
