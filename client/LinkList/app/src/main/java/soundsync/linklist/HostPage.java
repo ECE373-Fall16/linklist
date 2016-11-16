@@ -1,24 +1,33 @@
 package soundsync.linklist;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.concurrent.TimeUnit;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 /*-------------------Activity called by HOST button from Main----------------------------------*/
 public class HostPage extends AppCompatActivity {
 
     private Button play,pause,back,forward;
     private SeekBar timebar;
-    private TextView cur,dur,name;
+    private TextView cur,dur,name,myLobby;
     private MediaPlayer mediaPlayer;
     private Handler hand = new Handler();;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +44,11 @@ public class HostPage extends AppCompatActivity {
         cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
         dur = (TextView) findViewById(R.id.duration);           //dur = duration
         name = (TextView) findViewById(R.id.songName);          //name = song info
+        myLobby = (TextView)findViewById(R.id.myLobby);
+
+        Intent intent = getIntent();
+        String lobby = intent.getStringExtra(EXTRA_MESSAGE);
+        myLobby.setText("Hosting Lobby: " + lobby);
 
 
 
@@ -105,5 +119,15 @@ public class HostPage extends AppCompatActivity {
             hand.postDelayed(this, 100);
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            mediaPlayer.stop();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

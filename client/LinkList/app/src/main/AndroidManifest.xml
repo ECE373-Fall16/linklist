@@ -19,7 +19,8 @@
         <activity android:name=".ServerLogin" />
         <activity android:name=".HostConnect" />
         <activity android:name=".PlayConnect" />
-        <activity android:name=".PlayPage"></activity>
+        <activity android:name=".PlayPage" />
+        <activity android:name=".Queue"></activity>
     </application>
 
 </manifest>

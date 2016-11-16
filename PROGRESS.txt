@@ -13,3 +13,11 @@ added skip back/forward buttons; skip forward or back 3 seconds
 added timebar to track song duration
 NOTE: song still must be added to res/raw as "song"
 //cpb
+
+11-15-16
+-CLIENT
+added new "connect to lobby" pages. Currently non-functional.
+changed "play" to "join" for clarity
+added join page. Currently displays duration of current song, and a link to an empty "queue" page to be updated with a song list and vote buttons.
+royalty free song added to res/raw! credit to BenSound.
+//cpb
