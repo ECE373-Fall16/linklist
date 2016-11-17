@@ -33,3 +33,11 @@ Added a queue button to 'host'-side and moved forward/back buttons. Queue button
 changing mediaplayer to run in the background so it can be controlled across multiple pages.
 began implimenting a client xml-rpc connection, still struggling to connect to a local socket server.
 //cpb
+
+11-16-16
+-CLIENT
+join page now displays queue, rather than having the queue as a separate page
+host page has a button for queue that takes you to the queue page, but this is not final. This page should show the queue and current vote counts, and allow for addition on music as well as arbitrary rearrangement.
+xml-rpc base code is still on the join-connect page, but still isnt working so the error message is commented out.
+MediaPlayer is back to it's previous implimentation. Changed slightly so that going to the queue page doesn't reset the pplayer, but going back to the connect page does. This should eventually be implimented as a singleton class so that there is only ever one instance of MediaPlayer accross the app.
+//cpb

@@ -11,27 +11,27 @@
     tools:context="soundsync.linklist.PlayPage">
 
     <TextView
-        android:text="LinkList Join"
+        android:text="Connected to Host"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:textSize="35dp"
+        android:textSize="15dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
+  <!--  <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:text="Connected to Host"
         android:layout_centerHorizontal="true"
-        android:id="@+id/hostName"/>
+        android:id="@+id/hostName"/>    -->
 
     <SeekBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/songName"
         android:clickable="false"
         android:layout_alignLeft="@+id/title"
         android:layout_alignStart="@+id/title"
@@ -62,20 +62,40 @@
         android:id="@+id/songName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="30dp"
         android:textSize="18dp"
         android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/seekBar"
+        android:layout_below="@id/title"
         android:paddingBottom="20dp"
         android:text="Song name Here"/>
 
-    <Button
+    <TextView
+        android:id="@+id/queueTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBar"
+        android:paddingTop="30dp"
+        android:text="Song Queue:"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/queueTitle"
+        android:paddingTop="20dp"
+        android:id="@+id/listView">
+
+
+    </ListView>
+
+ <!--   <Button
         android:id="@+id/queue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/seekBar"
         android:text="View Queue"
-        android:onClick="goToQueue"/>
+        android:onClick="goToQueue"/>   -->
 
 </RelativeLayout>

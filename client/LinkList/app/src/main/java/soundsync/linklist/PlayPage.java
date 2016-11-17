@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -18,9 +20,8 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class PlayPage extends AppCompatActivity {
 
     private SeekBar timebar;
-    private TextView cur,dur,name,lobbyName;
+    private TextView cur,dur,name,title;
     private MediaPlayer mediaPlayer;
-    private Button viewQueue;
     private Handler hand = new Handler();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +38,13 @@ public class PlayPage extends AppCompatActivity {
         cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
         dur = (TextView) findViewById(R.id.duration);           //dur = duration
         name = (TextView) findViewById(R.id.songName);          //name = song info
-        lobbyName = (TextView) findViewById(R.id.hostName);
-        viewQueue = (Button) findViewById(R.id.queue);
+        title = (TextView) findViewById(R.id.title);
+        //lobbyName = (TextView) findViewById(R.id.hostName);
+       // viewQueue = (Button) findViewById(R.id.queue);
 
-        name.setText(String.format("Music courtesy of BenSound"));
+        name.setText(String.format("Current Song"));
 
-        lobbyName.setText(lobby);
+        title.setText("Connected to lobby: "+lobby);
 
         dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)mediaPlayer.getDuration())));    //label duration
         cur.setText(String.format("%d sec", mediaPlayer.getCurrentPosition()));          //label current time (only 0 sec for now)
@@ -55,6 +57,18 @@ public class PlayPage extends AppCompatActivity {
         timebar.setMax(mediaPlayer.getDuration());
         timebar.setProgress(mediaPlayer.getCurrentPosition());
         hand.postDelayed(UpdateSongTime,100);
+
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("Song 1");
+        list.add("Song 2");
+        list.add("Song 3");
+
+
+        QueueAdapter adapter = new QueueAdapter(list, this);
+
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
 
 
     }
@@ -69,7 +83,7 @@ public class PlayPage extends AppCompatActivity {
     };
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
+    public boolean onKeyDown(int keyCode, KeyEvent event)   //stop music player on back button press
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {

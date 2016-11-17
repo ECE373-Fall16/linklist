@@ -23,8 +23,9 @@ public class HostPage extends AppCompatActivity {
     private Button play,pause,back,forward,queue;
     private SeekBar timebar;
     private TextView cur,dur,name,myLobby;
-    private MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer;
     private Handler hand = new Handler();;
+    //MusicControler mc = new MusicControler(this);
 
 
 
@@ -35,7 +36,9 @@ public class HostPage extends AppCompatActivity {
 
 
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
-        mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
+       // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
+
+
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause
         back = (Button) findViewById(R.id.SkipBack);               //back = skipback
@@ -51,15 +54,25 @@ public class HostPage extends AppCompatActivity {
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
         myLobby.setText("Hosting Lobby: " + lobby);
 
+        if(mediaPlayer==null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.song);
+            pause.setEnabled(false);
+        }
+        else if(mediaPlayer!=null){
+            if(mediaPlayer.isPlaying())
+                play.setEnabled(false);
+            else if(!mediaPlayer.isPlaying())
+                pause.setEnabled(false);
+        }
 
-
-        pause.setEnabled(false);                                   //disable pause button before playing
+                                         //disable pause button before playing
 
         /****runs on play button click****/
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();                            //start song
+                //mc.play();
                 play.setEnabled(false);                           //disable play
                 pause.setEnabled(true);                            //enable pause
 
@@ -109,7 +122,7 @@ public class HostPage extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(HostPage.this, Queue.class);   //create intent to change to PlayPage (to be written)
-               // startActivity(intent);
+                startActivity(intent);
             }
         });
 
