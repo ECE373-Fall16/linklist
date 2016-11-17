@@ -27,3 +27,9 @@ royalty free song added to res/raw! credit to BenSound.
 'join'-side queue page shows queued song titles and vote buttons. This is currently a hard-coded list, and the vote buttons don't do anything yet. Eventually song titles will be sent in string format from server.
 Added a queue button to 'host'-side and moved forward/back buttons. Queue button is currently non-functional, but will lead to a list where songs can be added and queue order adjusted, votes should be visable too. This will eventually end up being a connection to the spotify api.
 //cpb
+
+11-16-16
+-CLIENT
+changing mediaplayer to run in the background so it can be controlled across multiple pages.
+began implimenting a client xml-rpc connection, still struggling to connect to a local socket server.
+//cpb
