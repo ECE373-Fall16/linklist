@@ -9,11 +9,13 @@ import android.widget.EditText;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class HostConnect extends AppCompatActivity {
+    Client client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_connect);
+        client = (Client)getIntent().getSerializableExtra("client");
     }
 
 
@@ -23,6 +25,7 @@ public class HostConnect extends AppCompatActivity {
         EditText size = (EditText) findViewById(R.id.lobbySize);
         String message = lobby.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra("client",client);
 
         startActivity(intent);  //go to HostPage
         lobby.setText("");

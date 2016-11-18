@@ -23,6 +23,7 @@ public class PlayPage extends AppCompatActivity {
     private TextView cur,dur,name,title;
     private MediaPlayer mediaPlayer;
     private Handler hand = new Handler();;
+    Client client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class PlayPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
+        client = (Client)intent.getSerializableExtra("client");
 
 
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */

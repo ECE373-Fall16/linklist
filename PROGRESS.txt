@@ -41,3 +41,9 @@ host page has a button for queue that takes you to the queue page, but this is n
 xml-rpc base code is still on the join-connect page, but still isnt working so the error message is commented out.
 MediaPlayer is back to it's previous implimentation. Changed slightly so that going to the queue page doesn't reset the pplayer, but going back to the connect page does. This should eventually be implimented as a singleton class so that there is only ever one instance of MediaPlayer accross the app.
 //cpb
+
+11-18-16
+-CLIENT
+connects to server on main page.
+server object is passd through the pages.
+//cpb

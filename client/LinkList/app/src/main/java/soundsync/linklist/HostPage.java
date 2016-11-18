@@ -19,7 +19,7 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 /*-------------------Activity called by HOST button from Main----------------------------------*/
 public class HostPage extends AppCompatActivity {
-
+    Client client;
     private Button play,pause,back,forward,queue;
     private SeekBar timebar;
     private TextView cur,dur,name,myLobby;
@@ -33,7 +33,7 @@ public class HostPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_page);
-
+        client = (Client)getIntent().getSerializableExtra("client");
 
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
        // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
