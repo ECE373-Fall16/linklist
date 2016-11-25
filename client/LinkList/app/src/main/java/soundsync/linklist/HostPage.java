@@ -23,7 +23,7 @@ public class HostPage extends AppCompatActivity {
     private Button play,pause,back,forward,queue;
     private SeekBar timebar;
     private TextView cur,dur,name,myLobby;
-    MediaPlayer mediaPlayer;
+    MusicControler music;
     private Handler hand = new Handler();;
     //MusicControler mc = new MusicControler(this);
 
@@ -38,6 +38,7 @@ public class HostPage extends AppCompatActivity {
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
        // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
 
+        music = MusicControler.getPlayer(HostPage.this);
 
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause
@@ -54,16 +55,8 @@ public class HostPage extends AppCompatActivity {
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
         myLobby.setText("Hosting Lobby: " + lobby);
 
-        if(mediaPlayer==null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.song);
-            pause.setEnabled(false);
-        }
-        else if(mediaPlayer!=null){
-            if(mediaPlayer.isPlaying())
-                play.setEnabled(false);
-            else if(!mediaPlayer.isPlaying())
-                pause.setEnabled(false);
-        }
+
+
 
                                          //disable pause button before playing
 
@@ -71,16 +64,12 @@ public class HostPage extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.start();                            //start song
+                music.play();                            //start song
                 //mc.play();
                 play.setEnabled(false);                           //disable play
                 pause.setEnabled(true);                            //enable pause
 
-                name.setText(String.format("Music courtesy of BenSound"));
 
-                timebar.setMax(mediaPlayer.getDuration());
-                timebar.setProgress(mediaPlayer.getCurrentPosition());
-                hand.postDelayed(UpdateSongTime,100);
             }
         });
 
@@ -88,7 +77,7 @@ public class HostPage extends AppCompatActivity {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.pause();                            //pause player
+                music.pause();                            //pause player
                 pause.setEnabled(false);                           //disable pause
                 play.setEnabled(true);                            //enable play
             }
@@ -98,10 +87,7 @@ public class HostPage extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                int t = 0;
-                t = mediaPlayer.getCurrentPosition() - 3000;       //skip back 3 second
-                if(t<0){t=0;}                                      //don't have negative time
-                mediaPlayer.seekTo(t);                              //seek to new time
+                music.back(3000);
             }
         });
 
@@ -109,11 +95,7 @@ public class HostPage extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                int t = 0;
-                t = (mediaPlayer.getCurrentPosition() + 3000)%mediaPlayer.getDuration();       //skip forward 3 second
-                /*mod song length so we don't try play past the end of the song
-                *This will cause song to repeat*/
-                mediaPlayer.seekTo(t);                              //seek to new time
+                music.forward(3000);
 
             }
         });
@@ -127,17 +109,23 @@ public class HostPage extends AppCompatActivity {
         });
 
 
+    //setup timebar and song title
+        dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getDuration())));    //label duration
+        cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getCurrentPosition())));          //label current time (only 0 sec for now)
+        name.setText(String.format("Music courtesy of BenSound"));
 
-        dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)mediaPlayer.getDuration())));    //label duration
-        cur.setText(String.format("%d sec", mediaPlayer.getCurrentPosition()));          //label current time (only 0 sec for now)
+        timebar.setMax(music.getDuration());
+        timebar.setProgress(music.getCurrentPosition());
+        hand.postDelayed(UpdateSongTime,100);
+
 
 
     }
 
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
-            int startTime = mediaPlayer.getCurrentPosition();
-            cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)mediaPlayer.getCurrentPosition())));
+            int startTime = music.getCurrentPosition();
+            cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)startTime)));
             timebar.setProgress((int)startTime);
             hand.postDelayed(this, 100);
         }
@@ -149,7 +137,7 @@ public class HostPage extends AppCompatActivity {
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
-            mediaPlayer.stop();
+            //music.stop();
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -15,10 +15,13 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        client = new Client("http://104.196.192.226:8080/RPC2");
+        client = new Client("http://104.196.192.226:8080");
         i = client.createClient();
-        if(i==-1){
+        if(i<0){
             Toast.makeText(getApplicationContext(), "Could not connect.", Toast.LENGTH_LONG).show();
+        }
+        if(i>=0){
+            Toast.makeText(getApplicationContext(), "Connected to Server.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -27,6 +30,7 @@ public class Main extends AppCompatActivity {
         Intent intent = new Intent(this, PlayConnect.class);   //create intent to change to PlayPage (to be written)
         startActivity(intent);  //go to PlayPage
         intent.putExtra("client", client);
+
     }
 
     /***Onclick for HOST button***/
@@ -34,5 +38,6 @@ public class Main extends AppCompatActivity {
         Intent intent = new Intent(this, HostConnect.class);   //HostPage.java TO BE WRITTEN
         startActivity(intent);  //go to HostPage
         intent.putExtra("client", client);
+
     }
 }

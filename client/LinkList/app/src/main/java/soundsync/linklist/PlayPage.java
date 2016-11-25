@@ -3,6 +3,7 @@ package soundsync.linklist;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -35,7 +36,8 @@ public class PlayPage extends AppCompatActivity {
 
 
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
-        mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
+        //music = MusicControler.getPlayer(PlayPage.this);
+        mediaPlayer = mediaPlayer.create(this, R.raw.song);
         timebar = (SeekBar) findViewById(R.id.seekBar);         //timebar = seekbar
         cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
         dur = (TextView) findViewById(R.id.duration);           //dur = duration

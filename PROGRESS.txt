@@ -47,3 +47,9 @@ MediaPlayer is back to it's previous implimentation. Changed slightly so that go
 connects to server on main page.
 server object is passd through the pages.
 //cpb
+
+11-25-16
+-CLIENT:singleton
+rewrote mediacontroler as a singleton class:
+hostpage only creates one music player (removed feature allowing users to play the same some over itself multiple times)
+//cpb
