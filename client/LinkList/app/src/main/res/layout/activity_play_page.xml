@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/title"
@@ -82,20 +82,33 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/queueTitle"
         android:paddingTop="20dp"
-        android:id="@+id/listView">
+        android:id="@+id/listView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/queueTitle"
+        android:layout_marginBottom="42dp">
 
 
     </ListView>
 
- <!--   <Button
-        android:id="@+id/queue"
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/seekBar"
-        android:text="View Queue"
-        android:onClick="goToQueue"/>   -->
+        android:text="Cancel"
+        android:onClick="playpageCancel"
+        android:id="@+id/HostCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!--   <Button
+           android:id="@+id/queue"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_below="@id/seekBar"
+           android:text="View Queue"
+           android:onClick="goToQueue"/>   -->
 
 </RelativeLayout>

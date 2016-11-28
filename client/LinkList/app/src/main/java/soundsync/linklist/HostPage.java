@@ -1,8 +1,10 @@
 package soundsync.linklist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -24,7 +26,7 @@ public class HostPage extends AppCompatActivity {
     private SeekBar timebar;
     private TextView cur,dur,name,myLobby;
     MusicControler music;
-    private Handler hand = new Handler();;
+    private Handler hand = new Handler();
     //MusicControler mc = new MusicControler(this);
 
 
@@ -141,5 +143,33 @@ public class HostPage extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+    public void hostpageCancel(View view){ //Cancel button on hostPage
 
+        Intent intent = new Intent(this, Main.class);
+        /* working on this... -Vinni
+        AlertDialog.Builder quitConfirm = new AlertDialog.Builder(getBaseContext());//Alertbox to confirm close of room
+        quitConfirm.setMessage("Are you sure you want to close your lobby?");
+        quitConfirm.setCancelable(true);
+
+        quitConfirm.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.cancel();
+                    }
+                });
+
+        quitConfirm.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert1 = quitConfirm.create();
+        alert1.show();
+        */
+        startActivity(intent);  //go to Main
+    }
 }

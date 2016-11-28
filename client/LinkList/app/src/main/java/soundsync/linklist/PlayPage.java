@@ -23,7 +23,7 @@ public class PlayPage extends AppCompatActivity {
     private SeekBar timebar;
     private TextView cur,dur,name,title;
     private MediaPlayer mediaPlayer;
-    private Handler hand = new Handler();;
+    private Handler hand = new Handler();
     Client client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +65,14 @@ public class PlayPage extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<String>();
         list.add("Song 1");
         list.add("Song 2");
-        list.add("Song 3");
-
+        list.add("Song 3");//added more 'songs' to show scrolling
+        list.add("Song 4");
+        list.add("Song 5");
+        list.add("Song 6");
+        list.add("Song 7");
+        list.add("Song 8");
+        list.add("Song 9");
+        list.add("Song 10");
 
         QueueAdapter adapter = new QueueAdapter(list, this);
 
@@ -100,4 +106,10 @@ public class PlayPage extends AppCompatActivity {
         Intent intent = new Intent(this, Queue.class);
         startActivity(intent);
     }
+
+    public void playpageCancel(View view){//cancel button on PlayPage
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);  //go to Main
+    }
+
 }

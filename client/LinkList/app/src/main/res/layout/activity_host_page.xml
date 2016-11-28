@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <TextView
@@ -97,12 +97,13 @@
         android:id="@+id/songName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/seekBar"
         android:paddingBottom="20dp"
         android:text="Song name Here"/>
+
 
     <Button
         android:id="@+id/hostQueueButton"
@@ -110,7 +111,19 @@
         android:layout_height="wrap_content"
         android:text="Adjust Queue"
         android:layout_alignParentBottom="true"
-        android:onClick="goToQueue"
-        />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="38dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:onClick="hostpageCancel"
+        android:id="@+id/HostCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

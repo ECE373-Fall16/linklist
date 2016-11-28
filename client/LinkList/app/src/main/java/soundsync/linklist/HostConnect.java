@@ -18,6 +18,10 @@ public class HostConnect extends AppCompatActivity {
         client = (Client)getIntent().getSerializableExtra("client");
     }
 
+    public void hostCancel(View view){//cancel button on hostConnect
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);  //go to Main
+    }
 
     public void hostPlay(View view){
         Intent intent = new Intent(this, HostPage.class);

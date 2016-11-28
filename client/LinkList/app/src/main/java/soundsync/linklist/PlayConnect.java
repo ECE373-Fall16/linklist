@@ -29,4 +29,8 @@ public class PlayConnect extends AppCompatActivity {
         startActivity(intent);  //go to HostPage
         intent.putExtra("client",client);
     }
+    public void playCancel(View view){//cancel button on PlayConnect
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);  //go to Main
+    }
 }
