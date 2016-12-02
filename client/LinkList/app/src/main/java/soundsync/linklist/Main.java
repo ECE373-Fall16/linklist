@@ -9,6 +9,7 @@ import android.widget.Toast;
 //DO YOU SEE THIS
 
 public class Main extends AppCompatActivity {
+
     int i;
     Client client;
     @Override
