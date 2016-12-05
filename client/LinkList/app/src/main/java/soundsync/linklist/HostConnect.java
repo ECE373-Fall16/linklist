@@ -16,6 +16,7 @@ public class HostConnect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_connect);
         client = (Client)getIntent().getSerializableExtra("client");
+
     }
 
     public void hostCancel(View view){//cancel button on hostConnect
