@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import org.xmlrpc.android.XMLRPCClient;
+
 //DO YOU SEE THIS
 
 public class Main extends AppCompatActivity {
@@ -20,21 +22,18 @@ public class Main extends AppCompatActivity {
 
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_main);
-        client = new Client("http://104.196.192.226:8080");
-        i = client.createClient();
-        if(i<0){
-            Toast.makeText(getApplicationContext(), "Could not connect.", Toast.LENGTH_LONG).show();
+        client = Client.getClient();
+       if(client==null){
+            Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
         }
-        if(i>=0){
-            Toast.makeText(getApplicationContext(), "Connected to Server.", Toast.LENGTH_LONG).show();
-        }
+
     }
 
     /***Onclick for PLAY button***/
     public void selectPlay(View view){                      //method called on "play button" click
         Intent intent = new Intent(this, PlayConnect.class);   //create intent to change to PlayPage (to be written)
         startActivity(intent);  //go to PlayPage
-        intent.putExtra("client", client);
+
 
     }
 
@@ -42,7 +41,7 @@ public class Main extends AppCompatActivity {
     public void selectHost(View view){
         Intent intent = new Intent(this, HostConnect.class);   //HostPage.java TO BE WRITTEN
         startActivity(intent);  //go to HostPage
-        intent.putExtra("client", client);
+
 
     }
 }
