@@ -17,7 +17,7 @@ public class Client {
     private static Context context;
     private static Client client = null;
     private static XMLRPCClient xml;
-    private static int connectFail;
+    private static int connectFail=1;
 
     private Client(){
 
@@ -25,14 +25,16 @@ public class Client {
 
     public static Client getClient() {
         if(client == null){
-            client = new Client();
-            if(connectFail==0){createClient(hostName);}
+            createClient();
+           // if(connectFail==0){
+                client = new Client();
+
+           // }
         }
         return client;
     }
 
-    public static void createClient(String hostName){
-        Client.hostName = hostName;
+    public static void createClient(){
         try{
             xml = new XMLRPCClient(hostName);
             xml.call("connect");
@@ -43,6 +45,15 @@ public class Client {
             connectFail=1;
         }
 
+    }
+
+    public static void sendLobbyInfo(String name, int size){
+        try{
+            xml.call("createLobby", name, size);
+        }
+        catch (Exception e){
+            System.out.println("Lobby Create Error: " + e);
+        }
     }
 
 }

@@ -30,6 +30,7 @@ public class HostConnect extends AppCompatActivity {
         Intent intent = new Intent(this, HostPage.class);
         EditText lobby = (EditText) findViewById(R.id.lobbyName);
         EditText size = (EditText) findViewById(R.id.lobbySize);
+        client.sendLobbyInfo(lobby.getText().toString(), Integer.parseInt(size.getText().toString()) );
         String message = lobby.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
 

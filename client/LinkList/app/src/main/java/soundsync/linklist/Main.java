@@ -18,14 +18,21 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ///////////override to allow networking in forground
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
         StrictMode.setThreadPolicy(policy);
+        //////
+
         setContentView(R.layout.activity_main);
+
+
+
+
+
         client = Client.getClient();
-       if(client==null){
-            Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
-        }
+      // if(client==null){
+        //    Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
+        //}
 
     }
 
