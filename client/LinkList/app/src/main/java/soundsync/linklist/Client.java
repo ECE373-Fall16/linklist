@@ -11,7 +11,7 @@ import org.xmlrpc.android.XMLRPCClient;
 
 import java.io.Serializable;
 import java.util.*;
-import org.apache.xmlrpc.*;
+
 
 public class Client implements Serializable {
 

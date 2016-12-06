@@ -15,6 +15,16 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+//------------------------Spotify----------------------//
+import com.spotify.sdk.android.player.Config;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Player;
+import com.spotify.sdk.android.player.PlayerEvent;
+import com.spotify.sdk.android.player.Spotify;
+import com.spotify.sdk.android.player.SpotifyPlayer;
+//-----------------------------------------------------//
+
 import java.util.concurrent.TimeUnit;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;

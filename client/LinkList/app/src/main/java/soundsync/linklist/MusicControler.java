@@ -3,6 +3,16 @@ package soundsync.linklist;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+//------------------------Spotify----------------------//
+import com.spotify.sdk.android.player.Config;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Player;
+import com.spotify.sdk.android.player.PlayerEvent;
+import com.spotify.sdk.android.player.Spotify;
+import com.spotify.sdk.android.player.SpotifyPlayer;
+//-----------------------------------------------------//
+
 /**
  * controller class for mediaplayer, intended to allow mediaplayer to be controlled across pages.
         */
