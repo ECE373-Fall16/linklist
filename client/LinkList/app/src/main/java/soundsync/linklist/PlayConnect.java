@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.xmlrpc.android.XMLRPCClient;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class PlayConnect extends AppCompatActivity {
@@ -15,7 +17,7 @@ public class PlayConnect extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_connect);
-        client = (Client)getIntent().getSerializableExtra("client");
+        client = Client.getClient();
     }
 
     public void playPage(View view){
@@ -27,7 +29,6 @@ public class PlayConnect extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         editText.setText("");
         startActivity(intent);  //go to HostPage
-        intent.putExtra("client",client);
     }
     public void playCancel(View view){//cancel button on PlayConnect
         Intent intent = new Intent(this, Main.class);

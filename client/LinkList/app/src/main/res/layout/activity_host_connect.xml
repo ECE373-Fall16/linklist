@@ -51,6 +51,7 @@
         android:id="@+id/lobbySize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="choose lobby size"
         android:layout_below="@id/sizeText"/>
 

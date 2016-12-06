@@ -15,6 +15,16 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+//------------------------Spotify----------------------//
+import com.spotify.sdk.android.player.Config;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Player;
+import com.spotify.sdk.android.player.PlayerEvent;
+import com.spotify.sdk.android.player.Spotify;
+import com.spotify.sdk.android.player.SpotifyPlayer;
+//-----------------------------------------------------//
+
 import java.util.concurrent.TimeUnit;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -35,7 +45,7 @@ public class HostPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_page);
-        client = (Client)getIntent().getSerializableExtra("client");
+        //client = (Client)getIntent().getSerializableExtra("client");
 
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
        // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw

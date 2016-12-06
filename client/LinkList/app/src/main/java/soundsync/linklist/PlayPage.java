@@ -32,7 +32,7 @@ public class PlayPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
-        client = (Client)intent.getSerializableExtra("client");
+        //client = (Client)intent.getSerializableExtra("client");
 
 
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
