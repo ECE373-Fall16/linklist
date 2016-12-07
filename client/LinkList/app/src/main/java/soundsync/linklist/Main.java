@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-
 //---------------------SPOTIFY IMPORTS----------------------//
 import android.app.Activity;
 import android.content.Intent;
@@ -26,7 +25,7 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 //---------------------------------------------------------//
 
-public class Main extends Activity implements SpotifyPlayer.NotificationCallback,ConnectionStateCallback {
+public class Main extends AppCompatActivity /* implements SpotifyPlayer.NotificationCallback,ConnectionStateCallback */{
 
     int i;
     Client client;
@@ -42,21 +41,13 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
 
         setContentView(R.layout.activity_main);
 
-
-
-
-
-
         client = Client.getClient();
       // if(client==null){
         //    Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
         //}
 
 
-        //--------------FROM SPOTIFY-------------//
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+       /* //--------------FROM SPOTIFY-------------//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -67,7 +58,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-        //---------------------------------------//
+        //---------------------------------------// */
 
     }
 
@@ -87,8 +78,8 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
 
     }
 
-
-    private static final String CLIENT_ID = ""; // TODO: remove this?
+/*******************************SPOTIFY STUFF
+    private static final String CLIENT_ID = "e4402cbd73bf4eb1b6571a9659783af2"; // TODO: remove this?
 
     private static final String REDIRECT_URI = "soundsync.linklist://callback";
 
@@ -152,7 +143,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
 
-        mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
+      //  mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
 
     }
 
@@ -176,6 +167,6 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         Log.d("MainActivity", "Received connection message: " + message);
     }
 
-
+            ********************/
 
 }
