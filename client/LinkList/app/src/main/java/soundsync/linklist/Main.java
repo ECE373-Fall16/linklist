@@ -57,9 +57,6 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
                 REDIRECT_URI);
