@@ -38,12 +38,14 @@ public class Client {
     public static void createClient(){
         try{
             xml = new XMLRPCClient(hostName);
-            xml.call("connect");
-            connectFail=0;
+            connectFail = (int)xml.call("connect");
+            System.out.println("Connectfail: " + connectFail);
             }
         catch (Exception e){
             System.out.println("Connection Err: " + e);
+            System.out.println("ConnectFail: " + connectFail);
             connectFail=1;
+
         }
 
     }
