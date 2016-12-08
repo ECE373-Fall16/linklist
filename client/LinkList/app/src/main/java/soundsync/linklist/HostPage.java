@@ -17,6 +17,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 //------------------------Spotify----------------------//
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
@@ -28,13 +30,6 @@ import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.concurrent.TimeUnit;
 
-import kaaes.spotify.webapi.android.SpotifyApi;
-import kaaes.spotify.webapi.android.SpotifyService;
-import kaaes.spotify.webapi.android.models.Album;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 /*-------------------Activity called by HOST button from Main----------------------------------*/
@@ -45,6 +40,11 @@ public class HostPage extends AppCompatActivity {
     private TextView cur,dur,name,myLobby;
     MusicControler music;
     private Handler hand = new Handler();
+
+
+    private static final int REQUEST_CODE = 1337;
+    Player mPlayer;
+
     //MusicControler mc = new MusicControler(this);
 
 
@@ -58,33 +58,7 @@ public class HostPage extends AppCompatActivity {
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
        // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
 
-
-        ///////////////////////
-
-        SpotifyApi api = new SpotifyApi();
-
-// Most (but not all) of the Spotify Web API endpoints require authorisation.
-// If you know you'll only use the ones that don't require authorisation you can skip this step
-        api.setAccessToken(MusicControler.getAccessToken());
-
-        SpotifyService spotify = api.getService();
-
-        spotify.getAlbum("2dIGnmEIy1WZIcZCFSj6i8", new Callback<Album>() {
-
-            public void success(Album album, Response response) {
-                Log.d("Album success", album.name);
-            }
-
-            public void failure(RetrofitError error) {
-                Log.d("Album failure", error.toString());
-            }
-        });
-
-        //////////////////////////
-
-
-
-        music = MusicControler.getPlayer(HostPage.this);
+       // music = MusicControler.getPlayer(HostPage.this);
 
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause
@@ -104,13 +78,19 @@ public class HostPage extends AppCompatActivity {
 
 
 
-                                         //disable pause button before playing
+
+
+
+
+
+
+        //disable pause button before playing
 
         /****runs on play button click****/
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-  //              music.play();                            //start song
+                music.play();                            //start song
                 //mc.play();
                 play.setEnabled(false);                           //disable play
                 pause.setEnabled(true);                            //enable pause
@@ -123,7 +103,7 @@ public class HostPage extends AppCompatActivity {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-       //         music.pause();                            //pause player
+                music.pause();                            //pause player
                 pause.setEnabled(false);                           //disable pause
                 play.setEnabled(true);                            //enable play
             }
@@ -133,7 +113,7 @@ public class HostPage extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-          //      music.back(3000);
+               // music.back(3000);
             }
         });
 
@@ -141,7 +121,7 @@ public class HostPage extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-              //  music.forward(3000);
+               // music.forward(3000);
 
             }
         });
@@ -156,23 +136,30 @@ public class HostPage extends AppCompatActivity {
 
 
     //setup timebar and song title
-  //      dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getDuration())));    //label duration
-   //     cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getCurrentPosition())));          //label current time (only 0 sec for now)
-        name.setText(String.format("Music courtesy of BenSound"));
+      //  dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getDuration())));    //label duration
+     //   cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getCurrentPosition())));          //label current time (only 0 sec for now)
+      //  name.setText(String.format("Music courtesy of BenSound"));
 
-     //   timebar.setMax(music.getDuration());
-       // timebar.setProgress(music.getCurrentPosition());
-       // hand.postDelayed(UpdateSongTime,100);
+      //  timebar.setMax(music.getDuration());
+     //   timebar.setProgress(music.getCurrentPosition());
+        hand.postDelayed(UpdateSongTime,100);
 
 
 
     }
 
+
+
+
+
+
+
+
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
-      //      int startTime = music.getCurrentPosition();
-        //    cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)startTime)));
-         //   timebar.setProgress((int)startTime);
+        //    int startTime = music.getCurrentPosition();
+       //     cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)startTime)));
+        //    timebar.setProgress((int)startTime);
           //  hand.postDelayed(this, 100);
         }
     };
@@ -190,6 +177,9 @@ public class HostPage extends AppCompatActivity {
     public void hostpageCancel(View view){ //Cancel button on hostPage
 
         Intent intent = new Intent(this, Main.class);
+
+
+
         /* working on this... -Vinni
         AlertDialog.Builder quitConfirm = new AlertDialog.Builder(getBaseContext());//Alertbox to confirm close of room
         quitConfirm.setMessage("Are you sure you want to close your lobby?");

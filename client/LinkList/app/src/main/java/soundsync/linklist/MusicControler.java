@@ -2,6 +2,7 @@ package soundsync.linklist;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.provider.Settings;
 
 //------------------------Spotify----------------------//
 import com.spotify.sdk.android.player.Config;
@@ -20,26 +21,25 @@ import com.spotify.sdk.android.player.SpotifyPlayer;
 public class MusicControler {
     private static MusicControler music = null;
     private static Player mediaPlayer;
-    private static String accessToken;
     private static Context context;
+    private static String accessToken;
 
     private MusicControler(){
 
     }
 
-    public static MusicControler getPlayer(Context cont){
-        updateContext(cont);
-        if(music == null){
-            music = new MusicControler();
-           // createPlayer();
-        }
-        return music;
+    public static void makePlayer(Player player, String accessToken){
+        mediaPlayer = player;
+        MusicControler.accessToken = accessToken;
+
     }
 
-    public static MusicControler makePlayer(Player mPlayer, String accessToken){
-        mediaPlayer = mPlayer;
-        MusicControler.accessToken = accessToken;
-        music = new MusicControler();
+    public static MusicControler getPlayer(){
+        //updateContext(cont);
+      /*  if(music == null){
+            music = new MusicControler();
+            //createPlayer();
+        }   */
         return music;
     }
 
@@ -47,26 +47,45 @@ public class MusicControler {
         return accessToken;
     }
 
-
-
     public static void updateContext(Context newCont){
         context = newCont;
     }
 
- /*   private static void createPlayer(){
+   /* private static void createPlayer(){
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-    }
+    }   */
 
     public static void play(){
-        if(!getStatus())
-            mediaPlayer.start();
+      //  if(!getStatus())
+        final Player.OperationCallback callback = new Player.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                System.out.println("it went OK");
+            }
+
+            @Override
+            public void onError(Error error) {
+                System.out.print("we fucked it");
+            }
+        };
+        mediaPlayer.resume(callback);
     }
 
-    public static void pause(){
-        if(getStatus())
-            mediaPlayer.pause();
-    }
+      public static void pause(){
+          final Player.OperationCallback callback = new Player.OperationCallback() {
+              @Override
+              public void onSuccess() {
+                  System.out.println("it went OK");
+              }
 
+              @Override
+              public void onError(Error error) {
+                    System.out.print("we fucked it");
+              }
+          };
+          mediaPlayer.pause(callback);
+    }
+/*
     public static void stop(){
         mediaPlayer.stop();
     }
