@@ -26,6 +26,7 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Metadata;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
@@ -37,29 +38,22 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
     public Client client = null;
     private static final int REQUEST_CODE = 1337;
 
-    Thread welcomeThread = new Thread() {
+  /*  Thread welcomeThread = new Thread() {
 
         @Override
         public void run() {
             try {
                 //super.run();
+
                 client = Client.getClient();
-                if(client==null){
-                    Splash.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(Splash.this, "Connection Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+
             } catch (Exception e) {
                 System.out.println("Splash error: " + e);
             } finally {
-
-
                 finish();
             }
         }
-    };
+    };  */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +61,14 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
         setContentView(R.layout.activity_splash);
 
 
-        welcomeThread.start();
+
+      client = Client.getClient();
 
 
 
         //--------------FROM SPOTIFY-------------//
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+ /*       super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);     */
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -107,6 +102,7 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
                         mPlayer = spotifyPlayer;
                         mPlayer.addConnectionStateCallback(Splash.this);
                         mPlayer.addNotificationCallback(Splash.this);
+                        MusicControler.makePlayer(mPlayer);
                     }
 
                     @Override
@@ -149,15 +145,23 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
     @Override
     public void onLoggedIn() {
         Log.d("SplashActivity", "User logged in");
-        try {
+        mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
+      //  System.out.println(Metadata.);
+        System.out.println("logged in on splash");
+      /*  try {
             welcomeThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            System.out.println("welcomeThread Fail in Splash: " + e);
         }
-        Intent i = new Intent(Splash.this,
-                Main.class);
+        finally {
+            System.out.println("WE LOGGED IN THIS TIME");
+
+            Intent i = new Intent(Splash.this, Main.class);
+            startActivity(i);
+        }   */
+        Intent i = new Intent(Splash.this, Main.class);
         startActivity(i);
-        //  mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
 
     }
 
@@ -166,9 +170,11 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
         Log.d("SplashActivity", "User logged out");
     }
 
+
     @Override
     public void onLoginFailed(int i) {
         Log.d("SplashActivity", "Login failed");
+
     }
 
     @Override

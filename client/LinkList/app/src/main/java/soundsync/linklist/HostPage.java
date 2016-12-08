@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 //------------------------Spotify----------------------//
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
@@ -37,6 +40,11 @@ public class HostPage extends AppCompatActivity {
     private TextView cur,dur,name,myLobby;
     MusicControler music;
     private Handler hand = new Handler();
+
+
+    private static final int REQUEST_CODE = 1337;
+    Player mPlayer;
+
     //MusicControler mc = new MusicControler(this);
 
 
@@ -70,7 +78,13 @@ public class HostPage extends AppCompatActivity {
 
 
 
-                                         //disable pause button before playing
+
+
+
+
+
+
+        //disable pause button before playing
 
         /****runs on play button click****/
         play.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +113,7 @@ public class HostPage extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                music.back(3000);
+               // music.back(3000);
             }
         });
 
@@ -107,7 +121,7 @@ public class HostPage extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                music.forward(3000);
+               // music.forward(3000);
 
             }
         });
@@ -122,24 +136,31 @@ public class HostPage extends AppCompatActivity {
 
 
     //setup timebar and song title
-        dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getDuration())));    //label duration
-        cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getCurrentPosition())));          //label current time (only 0 sec for now)
-        name.setText(String.format("Music courtesy of BenSound"));
+      //  dur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getDuration())));    //label duration
+     //   cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)music.getCurrentPosition())));          //label current time (only 0 sec for now)
+      //  name.setText(String.format("Music courtesy of BenSound"));
 
-        timebar.setMax(music.getDuration());
-        timebar.setProgress(music.getCurrentPosition());
+      //  timebar.setMax(music.getDuration());
+     //   timebar.setProgress(music.getCurrentPosition());
         hand.postDelayed(UpdateSongTime,100);
 
 
 
     }
 
+
+
+
+
+
+
+
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
-            int startTime = music.getCurrentPosition();
-            cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)startTime)));
-            timebar.setProgress((int)startTime);
-            hand.postDelayed(this, 100);
+        //    int startTime = music.getCurrentPosition();
+       //     cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)startTime)));
+        //    timebar.setProgress((int)startTime);
+          //  hand.postDelayed(this, 100);
         }
     };
 
@@ -156,6 +177,9 @@ public class HostPage extends AppCompatActivity {
     public void hostpageCancel(View view){ //Cancel button on hostPage
 
         Intent intent = new Intent(this, Main.class);
+
+
+
         /* working on this... -Vinni
         AlertDialog.Builder quitConfirm = new AlertDialog.Builder(getBaseContext());//Alertbox to confirm close of room
         quitConfirm.setMessage("Are you sure you want to close your lobby?");

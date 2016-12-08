@@ -41,7 +41,7 @@ public class Main extends AppCompatActivity /* implements SpotifyPlayer.Notifica
 
         setContentView(R.layout.activity_main);
 
-        client = Client.getClient();
+//        client = Client.getClient();
       // if(client==null){
         //    Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
         //}
