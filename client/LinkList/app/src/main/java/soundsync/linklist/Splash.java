@@ -31,12 +31,20 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
+
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Album;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 //---------------------------------------------------------//
 
 public class Splash extends Activity implements SpotifyPlayer.NotificationCallback,ConnectionStateCallback  {
 
     public Client client = null;
     private static final int REQUEST_CODE = 1337;
+    String accessToken;
 
   /*  Thread welcomeThread = new Thread() {
 
@@ -62,6 +70,16 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
 
 
 
+
+        ////////////////////////////////////////////////
+
+
+
+
+        /////////////////////////////////////////////////
+
+
+
       client = Client.getClient();
 
 
@@ -81,7 +99,7 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
 
     }
 
-    private static final String CLIENT_ID = ""; // TODO: remove this?
+    private static final String CLIENT_ID = "e4402cbd73bf4eb1b6571a9659783af2"; // TODO: remove this?
 
     private static final String REDIRECT_URI = "soundsync.linklist://callback";
 
@@ -95,6 +113,7 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
+                accessToken = response.getAccessToken();
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
                 Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                     @Override
@@ -102,7 +121,8 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
                         mPlayer = spotifyPlayer;
                         mPlayer.addConnectionStateCallback(Splash.this);
                         mPlayer.addNotificationCallback(Splash.this);
-                        MusicControler.makePlayer(mPlayer);
+                        MusicControler.makePlayer(mPlayer, accessToken);
+
                     }
 
                     @Override

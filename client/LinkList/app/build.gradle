@@ -37,6 +37,6 @@ dependencies {
     // All other dependencies for your app should also be here:
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/xmlrpc-android.jar')
-
+    compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
 
 }

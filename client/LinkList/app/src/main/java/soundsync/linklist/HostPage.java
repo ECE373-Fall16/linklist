@@ -58,7 +58,7 @@ public class HostPage extends AppCompatActivity {
         /*  NOTE: PUT SONG FILE TO BE PLAYED IN RES/RAW LABELED 'song'  */
        // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
 
-        music = MusicControler.getPlayer(HostPage.this);
+       // music = MusicControler.getPlayer(HostPage.this);
 
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause

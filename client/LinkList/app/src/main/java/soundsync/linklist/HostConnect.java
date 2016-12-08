@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.xmlrpc.android.XMLRPCClient;
 
@@ -30,6 +31,19 @@ public class HostConnect extends AppCompatActivity {
         Intent intent = new Intent(this, HostPage.class);
         EditText lobby = (EditText) findViewById(R.id.lobbyName);
         EditText size = (EditText) findViewById(R.id.lobbySize);
+
+        if(lobby.getText().toString().equals("")){
+            Toast.makeText(this, "Please Enter Lobby Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(size.getText().toString().equals("")){
+            Toast.makeText(this, "Please Enter Lobby Size", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+
         client.sendLobbyInfo(lobby.getText().toString(), Integer.parseInt(size.getText().toString()) );
         String message = lobby.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);

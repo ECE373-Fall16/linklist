@@ -22,22 +22,29 @@ public class MusicControler {
     private static MusicControler music = null;
     private static Player mediaPlayer;
     private static Context context;
+    private static String accessToken;
 
     private MusicControler(){
 
     }
 
-    public static void makePlayer(Player player){
+    public static void makePlayer(Player player, String accessToken){
         mediaPlayer = player;
+        MusicControler.accessToken = accessToken;
+
     }
 
-    public static MusicControler getPlayer(Context cont){
+    public static MusicControler getPlayer(){
         //updateContext(cont);
       /*  if(music == null){
             music = new MusicControler();
             //createPlayer();
         }   */
         return music;
+    }
+
+    public static String getAccessToken(){
+        return accessToken;
     }
 
     public static void updateContext(Context newCont){
