@@ -24,9 +24,19 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
+
+import kaaes.spotify.webapi.android.*;
+import kaaes.spotify.webapi.android.annotations.DELETEWITHBODY;
+import kaaes.spotify.webapi.android.models.*;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 //---------------------------------------------------------//
 
 public class Main extends Activity implements SpotifyPlayer.NotificationCallback,ConnectionStateCallback {
+
+
+
 
     int i;
     Client client;
@@ -41,6 +51,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         //////
 
         setContentView(R.layout.activity_main);
+
 
 
 
@@ -85,7 +96,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
     }
 
 
-    private static final String CLIENT_ID = ""; // TODO: remove this?
+    private static final String CLIENT_ID = "e4402cbd73bf4eb1b6571a9659783af2"; // TODO: remove this?
 
     private static final String REDIRECT_URI = "soundsync.linklist://callback";
 
@@ -97,7 +108,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
 
         // Check if result comes from the correct activity
         if (requestCode == REQUEST_CODE) {
-            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
+            final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
                 Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
@@ -106,6 +117,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
                         mPlayer = spotifyPlayer;
                         mPlayer.addConnectionStateCallback(Main.this);
                         mPlayer.addNotificationCallback(Main.this);
+                        MusicControler.makePlayer(mPlayer, response.getAccessToken());
                     }
 
                     @Override
@@ -149,7 +161,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
 
-        mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
+      //  mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
 
     }
 

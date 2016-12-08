@@ -19,7 +19,8 @@ import com.spotify.sdk.android.player.SpotifyPlayer;
 
 public class MusicControler {
     private static MusicControler music = null;
-    private static MediaPlayer mediaPlayer;
+    private static Player mediaPlayer;
+    private static String accessToken;
     private static Context context;
 
     private MusicControler(){
@@ -30,16 +31,29 @@ public class MusicControler {
         updateContext(cont);
         if(music == null){
             music = new MusicControler();
-            createPlayer();
+           // createPlayer();
         }
         return music;
     }
+
+    public static MusicControler makePlayer(Player mPlayer, String accessToken){
+        mediaPlayer = mPlayer;
+        MusicControler.accessToken = accessToken;
+        music = new MusicControler();
+        return music;
+    }
+
+    public static String getAccessToken(){
+        return accessToken;
+    }
+
+
 
     public static void updateContext(Context newCont){
         context = newCont;
     }
 
-    private static void createPlayer(){
+ /*   private static void createPlayer(){
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
     }
 
@@ -65,7 +79,7 @@ public class MusicControler {
         int t = 0;
         t = (mediaPlayer.getCurrentPosition() + msec)%mediaPlayer.getDuration();       //skip forward 3 second
                 /*mod song length so we don't try play past the end of the song
-                *This will cause song to repeat*/
+                *This will cause song to repeat
         mediaPlayer.seekTo(t);
     }
 
@@ -86,5 +100,5 @@ public class MusicControler {
 
     public static int getCurrentPosition(){
         return mediaPlayer.getCurrentPosition();
-    }
+    }   */
 }
