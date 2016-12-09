@@ -26,6 +26,10 @@ public class PlayConnect extends AppCompatActivity {
 
 
         String message = Client.joinRoom(Integer.parseInt(editText.getText().toString()));
+        if(message=="There aint no rooms you rogue agent, host something instead") {
+            Toast.makeText(this, "No Lobbies available", Toast.LENGTH_SHORT).show();
+            return;
+        }
         intent.putExtra(EXTRA_MESSAGE, message);
         editText.setText("");
         startActivity(intent);  //go to HostPage

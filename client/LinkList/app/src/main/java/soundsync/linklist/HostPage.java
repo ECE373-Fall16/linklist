@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -30,14 +29,19 @@ import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.concurrent.TimeUnit;
 
+import kaaes.spotify.webapi.android.SpotifyCallback;
+import kaaes.spotify.webapi.android.SpotifyError;
+import kaaes.spotify.webapi.android.models.TracksPager;
+import retrofit.client.Response;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 /*-------------------Activity called by HOST button from Main----------------------------------*/
 public class HostPage extends AppCompatActivity {
     Client client;
     private Button play,pause,back,forward,queue,nextInQueue;
-    private SeekBar timebar;
-    private TextView cur,dur,name,myLobby, lobbyID;
+
+    private TextView name,myLobby, lobbyID;
     MusicControler music;
     private Handler hand = new Handler();
 
@@ -59,13 +63,13 @@ public class HostPage extends AppCompatActivity {
        // mediaPlayer = MediaPlayer.create(this, R.raw.song);     //create mediaplayer to play song in res/raw
 
        // music = MusicControler.getPlayer(HostPage.this);
-
+        music = MusicControler.getPlayer();
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause
         //forward = (Button) findViewById(R.id.SkipFor);          //forward = skipfor
-        timebar = (SeekBar) findViewById(R.id.seekBar);         //timebar = seekbar
-        cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
-        dur = (TextView) findViewById(R.id.duration);           //dur = duration
+        //timebar = (SeekBar) findViewById(R.id.seekBar);         //timebar = seekbar
+      //  cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
+        //dur = (TextView) findViewById(R.id.duration);           //dur = duration
         name = (TextView) findViewById(R.id.songName);          //name = song info
         myLobby = (TextView)findViewById(R.id.myLobby);
         queue = (Button) findViewById(R.id.hostQueueButton);
@@ -76,7 +80,6 @@ public class HostPage extends AppCompatActivity {
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
         myLobby.setText("Hosting Lobby: " + lobby);
         lobbyID.setText("Lobby ID (share with friends): " + Client.getRoomId());
-
 
 
 
@@ -115,6 +118,19 @@ public class HostPage extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 music.playNextSong(nextInQueue());
+
+             /*   String URI = Client.getSongURI(0);
+                spotify.searchTracks(, new SpotifyCallback<TracksPager>() {
+                    @Overrid
+                    public void success(TracksPager tracksPager, Response response) {
+
+                    }
+                    @Override
+                    public void failure(SpotifyError error) {
+                        Log.d("URI Search failure", String.valueOf(error));
+                    }
+                });*/
+
             }
         });
 
@@ -139,7 +155,7 @@ public class HostPage extends AppCompatActivity {
 
       //  timebar.setMax(music.getDuration());
      //   timebar.setProgress(music.getCurrentPosition());
-        hand.postDelayed(UpdateSongTime,100);
+      //  hand.postDelayed(UpdateSongTime,100);
 
 
 
@@ -159,14 +175,14 @@ public class HostPage extends AppCompatActivity {
 
     }
 
-    private Runnable UpdateSongTime = new Runnable() {
+ /*   private Runnable UpdateSongTime = new Runnable() {
         public void run() {
         //    int startTime = music.getCurrentPosition();
        //     cur.setText(String.format("%d sec", TimeUnit.MILLISECONDS.toSeconds((long)startTime)));
         //    timebar.setProgress((int)startTime);
           //  hand.postDelayed(this, 100);
         }
-    };
+    };  */
 
 
     @Override

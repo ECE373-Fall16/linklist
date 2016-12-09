@@ -25,8 +25,11 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyCallback;
+import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Album;
+import kaaes.spotify.webapi.android.models.TracksPager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -50,13 +53,28 @@ public class Main extends AppCompatActivity /* implements SpotifyPlayer.Notifica
 
         setContentView(R.layout.activity_main);
 
-        SpotifyApi api = new SpotifyApi();
+     /*   SpotifyApi api = new SpotifyApi();
 
 // Most (but not all) of the Spotify Web API endpoints require authorisation.
 // If you know you'll only use the ones that don't require authorisation you can skip this step
         api.setAccessToken(accessToken);
 
         SpotifyService spotify = api.getService();
+
+        spotify.searchTracks("Ocean Man");
+
+
+        spotify.searchTracks("Ocean Man", new SpotifyCallback<TracksPager>() {
+            @Override
+            public void success(TracksPager tracksPager, Response response) {
+                Log.d("Oceaanman", tracksPager.tracks.items.);
+            }
+
+            @Override
+            public void failure(SpotifyError error) {
+                Log.d("couldn't find oceanman", error.toString());
+            }
+        });
 
         spotify.getAlbum("2dIGnmEIy1WZIcZCFSj6i8", new Callback<Album>() {
             @Override
@@ -68,12 +86,17 @@ public class Main extends AppCompatActivity /* implements SpotifyPlayer.Notifica
             public void failure(RetrofitError error) {
                 Log.d("Album failure", error.toString());
             }
-        });
+        }); */
 
 //        client = Client.getClient();
       // if(client==null){
         //    Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
         //}
+
+        if(client.getClient()==null)
+            Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
+        if(client.getClient()!=null)
+            Toast.makeText(this, "Connection Success", Toast.LENGTH_SHORT).show();
 
 
        /* //--------------FROM SPOTIFY-------------//

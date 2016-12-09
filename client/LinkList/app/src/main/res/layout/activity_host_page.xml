@@ -25,7 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/PauseButton"
-        android:layout_below="@id/PlayButton"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:text="||" />
 
@@ -34,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/SkipFor"
-        android:layout_above="@id/PauseButton"
+        android:layout_centerInParent="true"
         android:layout_alignParentRight="true"
         android:text="next"
         android:onClick="play"/>
@@ -62,37 +63,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <SeekBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:layout_above="@id/PlayButton"
-        android:clickable="false"
-        android:layout_alignLeft="@+id/title"
-        android:layout_alignStart="@+id/title"
-        android:layout_alignRight="@+id/title"
-        android:layout_alignEnd="@+id/title" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/currentTime"
-        android:layout_above="@+id/seekBar"
-        android:layout_toLeftOf="@+id/seekBar"
-        android:layout_toStartOf="@+id/seekBar" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/duration"
-        android:layout_above="@+id/seekBar"
-        android:layout_toRightOf="@+id/seekBar"
-        android:layout_toEndOf="@+id/seekBar" />
-
     <TextView
         android:id="@+id/songName"
         android:layout_width="wrap_content"
@@ -100,7 +70,7 @@
         android:textSize="18sp"
         android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/seekBar"
+        android:layout_above="@id/PlayButton"
         android:paddingBottom="20dp"
         android:text="Song name Here"/>
 

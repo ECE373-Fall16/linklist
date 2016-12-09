@@ -27,6 +27,8 @@ public class HostConnect extends AppCompatActivity {
         startActivity(intent);  //go to Main
     }
 
+
+
     public void hostPlay(View view){
         Intent intent = new Intent(this, HostPage.class);
         EditText lobby = (EditText) findViewById(R.id.lobbyName);

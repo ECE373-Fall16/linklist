@@ -138,12 +138,39 @@ public class Client {
         String next = null;
         try {
             next =(String) xml.call("playNext", roomId);
-            System.out.println(next);
+            System.out.println("Got Next Song"+next);
         } catch (XMLRPCException e) {
             e.printStackTrace();
         }
         return next;
     }
+
+    public static int getListSize(){
+        int size= 0;
+        try {
+           size = (int) xml.call("getListSize", roomId);
+            System.out.println("Got List size: "+size);
+        } catch (XMLRPCException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't get size"+e);
+        }
+        return size;
+    }
+
+
+    public static String getSongURI(int songNumber){
+        String songURI="";
+        try {
+            songURI = (String) xml.call("getSongURI", roomId, songNumber);
+            System.out.println("URI: "+ songURI);
+        } catch (XMLRPCException e) {
+            e.printStackTrace();
+            System.out.println("songURI error: "+e);
+            System.out.println("Song URI error returnd uri: "+songURI);
+        }
+        return songURI;
+    }
+
 
 
 }
