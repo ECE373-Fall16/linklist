@@ -38,7 +38,7 @@
         android:layout_above="@id/PauseButton"
         android:layout_alignParentRight="true"
         android:text="next"
-        android:onClick="nextInQueue"/>
+        android:onClick="play"/>
 
     <TextView
         android:text="LinkList Host"

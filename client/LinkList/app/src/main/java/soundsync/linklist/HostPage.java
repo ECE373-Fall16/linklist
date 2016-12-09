@@ -146,7 +146,9 @@ public class HostPage extends AppCompatActivity {
 
 
 
-
+    public void play(){
+        music.playNext(nextInQueue());
+    }
 
 
     public String nextInQueue(){

@@ -85,6 +85,21 @@ public class MusicControler {
           };
           mediaPlayer.pause(callback);
     }
+
+    public static void playNext(String string){
+        final Player.OperationCallback callback = new Player.OperationCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(Error error) {
+
+            }
+        };
+        mediaPlayer.playUri(null,string, 0, 0);
+    }
 /*
     public static void stop(){
         mediaPlayer.stop();
