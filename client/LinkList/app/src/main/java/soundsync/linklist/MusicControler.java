@@ -2,6 +2,7 @@ package soundsync.linklist;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.provider.Settings;
 
 //------------------------Spotify----------------------//
 import com.spotify.sdk.android.player.Config;
@@ -19,40 +20,72 @@ import com.spotify.sdk.android.player.SpotifyPlayer;
 
 public class MusicControler {
     private static MusicControler music = null;
-    private static MediaPlayer mediaPlayer;
+    private static Player mediaPlayer;
     private static Context context;
+    private static String accessToken;
 
     private MusicControler(){
 
     }
 
-    public static MusicControler getPlayer(Context cont){
-        updateContext(cont);
-        if(music == null){
+    public static void makePlayer(Player player, String accessToken){
+        mediaPlayer = player;
+        MusicControler.accessToken = accessToken;
+
+    }
+
+    public static MusicControler getPlayer(){
+        //updateContext(cont);
+      /*  if(music == null){
             music = new MusicControler();
-            createPlayer();
-        }
+            //createPlayer();
+        }   */
         return music;
+    }
+
+    public static String getAccessToken(){
+        return accessToken;
     }
 
     public static void updateContext(Context newCont){
         context = newCont;
     }
 
-    private static void createPlayer(){
+   /* private static void createPlayer(){
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-    }
+    }   */
 
     public static void play(){
-        if(!getStatus())
-            mediaPlayer.start();
+      //  if(!getStatus())
+        final Player.OperationCallback callback = new Player.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                System.out.println("it went OK");
+            }
+
+            @Override
+            public void onError(Error error) {
+                System.out.print("we fucked it");
+            }
+        };
+        mediaPlayer.resume(callback);
     }
 
-    public static void pause(){
-        if(getStatus())
-            mediaPlayer.pause();
-    }
+      public static void pause(){
+          final Player.OperationCallback callback = new Player.OperationCallback() {
+              @Override
+              public void onSuccess() {
+                  System.out.println("it went OK");
+              }
 
+              @Override
+              public void onError(Error error) {
+                    System.out.print("we fucked it");
+              }
+          };
+          mediaPlayer.pause(callback);
+    }
+/*
     public static void stop(){
         mediaPlayer.stop();
     }
@@ -65,7 +98,7 @@ public class MusicControler {
         int t = 0;
         t = (mediaPlayer.getCurrentPosition() + msec)%mediaPlayer.getDuration();       //skip forward 3 second
                 /*mod song length so we don't try play past the end of the song
-                *This will cause song to repeat*/
+                *This will cause song to repeat
         mediaPlayer.seekTo(t);
     }
 
@@ -86,5 +119,5 @@ public class MusicControler {
 
     public static int getCurrentPosition(){
         return mediaPlayer.getCurrentPosition();
-    }
+    }   */
 }

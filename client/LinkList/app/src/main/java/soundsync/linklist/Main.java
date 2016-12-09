@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-
 //---------------------SPOTIFY IMPORTS----------------------//
 import android.app.Activity;
 import android.content.Intent;
@@ -24,9 +23,16 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
+
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Album;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 //---------------------------------------------------------//
 
-public class Main extends Activity implements SpotifyPlayer.NotificationCallback,ConnectionStateCallback {
+public class Main extends AppCompatActivity /* implements SpotifyPlayer.NotificationCallback,ConnectionStateCallback */{
 
     int i;
     Client client;
@@ -38,25 +44,40 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         ///////////override to allow networking in forground
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        String accessToken = MusicControler.getAccessToken();
+
         //////
 
         setContentView(R.layout.activity_main);
 
+        SpotifyApi api = new SpotifyApi();
 
+// Most (but not all) of the Spotify Web API endpoints require authorisation.
+// If you know you'll only use the ones that don't require authorisation you can skip this step
+        api.setAccessToken(accessToken);
 
+        SpotifyService spotify = api.getService();
 
+        spotify.getAlbum("2dIGnmEIy1WZIcZCFSj6i8", new Callback<Album>() {
+            @Override
+            public void success(Album album, Response response) {
+                Log.d("Album success", album.name);
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Album failure", error.toString());
+            }
+        });
 
-        client = Client.getClient();
+//        client = Client.getClient();
       // if(client==null){
         //    Toast.makeText(this, "Connection Failed", Toast.LENGTH_SHORT).show();
         //}
 
 
-        //--------------FROM SPOTIFY-------------//
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+       /* //--------------FROM SPOTIFY-------------//
+>>>>>>> c97a05c60acdd47237ec2f91a1859685dbf91936
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -67,7 +88,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-        //---------------------------------------//
+        //---------------------------------------// */
 
     }
 
@@ -87,7 +108,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
 
     }
 
-
+/*******************************SPOTIFY STUFF
     private static final String CLIENT_ID = ""; // TODO: remove this?
 
     private static final String REDIRECT_URI = "soundsync.linklist://callback";
@@ -152,7 +173,7 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
 
-        mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
+      //  mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
 
     }
 
@@ -176,6 +197,6 @@ public class Main extends Activity implements SpotifyPlayer.NotificationCallback
         Log.d("MainActivity", "Received connection message: " + message);
     }
 
-
+            ********************/
 
 }
