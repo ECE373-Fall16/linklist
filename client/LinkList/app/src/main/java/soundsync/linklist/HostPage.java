@@ -35,7 +35,7 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 /*-------------------Activity called by HOST button from Main----------------------------------*/
 public class HostPage extends AppCompatActivity {
     Client client;
-    private Button play,pause,back,forward,queue;
+    private Button play,pause,back,forward,queue,nextInQueue;
     private SeekBar timebar;
     private TextView cur,dur,name,myLobby, lobbyID;
     MusicControler music;
@@ -62,7 +62,7 @@ public class HostPage extends AppCompatActivity {
 
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause
-        forward = (Button) findViewById(R.id.SkipFor);          //forward = skipfor
+        //forward = (Button) findViewById(R.id.SkipFor);          //forward = skipfor
         timebar = (SeekBar) findViewById(R.id.seekBar);         //timebar = seekbar
         cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
         dur = (TextView) findViewById(R.id.duration);           //dur = duration
@@ -70,6 +70,7 @@ public class HostPage extends AppCompatActivity {
         myLobby = (TextView)findViewById(R.id.myLobby);
         queue = (Button) findViewById(R.id.hostQueueButton);
         lobbyID = (TextView) findViewById(R.id.lobbyId);
+        nextInQueue = (Button) findViewById(R.id.SkipFor);
 
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
@@ -110,15 +111,15 @@ public class HostPage extends AppCompatActivity {
             }
         });
 
-
-        /**************RUNS ON SKIP FORWARD BUTTON**********/
-        forward.setOnClickListener(new View.OnClickListener() {
+        nextInQueue.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-               // music.forward(3000);
-
+                music.playNextSong(nextInQueue());
             }
         });
+
+
+
 
         queue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,13 +147,16 @@ public class HostPage extends AppCompatActivity {
 
 
 
-    public void play(){
-        music.playNext(nextInQueue());
-    }
+    /*public void play(){
+        System.out.println("we got to play in hostpage");
+        music.playNextSong(nextInQueue());
+
+    }*/
 
 
     public String nextInQueue(){
         return Client.playNext();
+
     }
 
     private Runnable UpdateSongTime = new Runnable() {
