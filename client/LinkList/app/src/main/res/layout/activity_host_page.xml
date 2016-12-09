@@ -30,15 +30,6 @@
         android:layout_centerHorizontal="true"
         android:text="||" />
 
-    <!-- SKIP BACK -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/SkipBack"
-        android:layout_above="@id/PauseButton"
-        android:layout_alignParentLeft="true"
-        android:text="back"
-         />
 
     <Button
         android:layout_width="wrap_content"
@@ -46,7 +37,8 @@
         android:id="@+id/SkipFor"
         android:layout_above="@id/PauseButton"
         android:layout_alignParentRight="true"
-        android:text="forward"  />
+        android:text="next"
+        android:onClick="nextInQueue"/>
 
     <TextView
         android:text="LinkList Host"
@@ -63,6 +55,13 @@
         android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
         android:text="Lobby Name"/>
+    <TextView
+        android:id="@+id/lobbyId"
+        android:text="Lobby ID"
+        android:layout_below="@id/myLobby"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -126,16 +125,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/PauseButton"
-        android:layout_alignRight="@+id/PauseButton"
-        android:layout_alignEnd="@+id/PauseButton"
-        android:layout_marginTop="28dp"
-        android:id="@+id/button" />
 
 
 </RelativeLayout>

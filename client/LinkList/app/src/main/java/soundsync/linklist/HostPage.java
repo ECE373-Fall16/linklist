@@ -37,7 +37,7 @@ public class HostPage extends AppCompatActivity {
     Client client;
     private Button play,pause,back,forward,queue;
     private SeekBar timebar;
-    private TextView cur,dur,name,myLobby;
+    private TextView cur,dur,name,myLobby, lobbyID;
     MusicControler music;
     private Handler hand = new Handler();
 
@@ -62,7 +62,6 @@ public class HostPage extends AppCompatActivity {
 
         play = (Button) findViewById(R.id.PlayButton);            //play = play
         pause = (Button) findViewById(R.id.PauseButton);           //pause = pause
-        back = (Button) findViewById(R.id.SkipBack);               //back = skipback
         forward = (Button) findViewById(R.id.SkipFor);          //forward = skipfor
         timebar = (SeekBar) findViewById(R.id.seekBar);         //timebar = seekbar
         cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
@@ -70,10 +69,12 @@ public class HostPage extends AppCompatActivity {
         name = (TextView) findViewById(R.id.songName);          //name = song info
         myLobby = (TextView)findViewById(R.id.myLobby);
         queue = (Button) findViewById(R.id.hostQueueButton);
+        lobbyID = (TextView) findViewById(R.id.lobbyId);
 
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
         myLobby.setText("Hosting Lobby: " + lobby);
+        lobbyID.setText("Lobby ID (share with friends): " + Client.getRoomId());
 
 
 
@@ -109,13 +110,6 @@ public class HostPage extends AppCompatActivity {
             }
         });
 
-        /**************RUNS ON SKIP BACK BUTTON**********/
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-               // music.back(3000);
-            }
-        });
 
         /**************RUNS ON SKIP FORWARD BUTTON**********/
         forward.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +127,8 @@ public class HostPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
     //setup timebar and song title
@@ -153,7 +149,9 @@ public class HostPage extends AppCompatActivity {
 
 
 
-
+    public String nextInQueue(){
+        return Client.playNext();
+    }
 
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {

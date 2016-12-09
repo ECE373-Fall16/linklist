@@ -34,7 +34,8 @@
         android:id="@+id/lobbyName"
         android:layout_below="@id/lobbyText"
         android:layout_width="match_parent"
-        android:hint="enter lobby identifier"
+        android:hint="enter lobby identifier #"
+        android:inputType="number"
         android:layout_height="wrap_content" />
 
     <Button

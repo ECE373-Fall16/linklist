@@ -26,7 +26,9 @@ public class Client {
     private static XMLRPCClient xml;        //our global xml object
     private static int connectFail=1;       //assume connection is failed (because we haven't connected yet)
     private static int hostId = 1234;       //hard coded host id, will be gernerated by server later
-    private static int roomId;              //roomId delivered upon room creation
+    private static int roomId = -1;              //roomId delivered upon room creation
+    private static int userID = 1234;
+    private static String joinedRoomName="";
 
 
     static Thread clientCreateThread = new Thread(new Runnable() {  //Initialize thread used to connect to server in bg
@@ -93,5 +95,55 @@ public class Client {
             System.out.println("Room Destroy Error: " + e);
         }
     }
+
+    public static int getRoomId(){
+        return roomId;
+    }
+
+    public static String joinRoom(int joinID){
+        try {
+            roomId = joinID;
+            joinedRoomName = (String)xml.call("joinRoom", joinID, userID);
+            System.out.println("Joined Room: "+joinedRoomName);
+        } catch (XMLRPCException e) {
+            System.out.println("Failed to join room"+e);
+            e.printStackTrace();
+        }
+        finally {
+            return joinedRoomName;
+        }
+    }
+
+    public static String getJoinedRoomName(){
+        return joinedRoomName;
+    }
+
+    public static void makeSong(String uri){
+        try {
+            if(roomId<0){
+                //make toast to warn about no room idea
+                return;
+            }
+            String retValue = (String)xml.call("makeSong", uri, roomId);
+            System.out.println("makeSong Success: " + retValue);
+            //System.out.println("roomId: "+ roomId);
+
+        } catch (XMLRPCException e) {
+            System.out.println("makeSong error: " + e);
+            e.printStackTrace();
+        }
+    }
+
+    public static String playNext(){
+        String next = null;
+        try {
+            next =(String) xml.call("playNext", roomId);
+            System.out.println(next);
+        } catch (XMLRPCException e) {
+            e.printStackTrace();
+        }
+        return next;
+    }
+
 
 }

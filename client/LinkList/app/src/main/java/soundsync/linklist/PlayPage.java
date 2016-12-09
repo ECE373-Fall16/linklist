@@ -1,20 +1,29 @@
 package soundsync.linklist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import kaaes.spotify.webapi.android.models.Track;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -106,10 +115,14 @@ public class PlayPage extends AppCompatActivity {
         Intent intent = new Intent(this, Queue.class);
         startActivity(intent);
     }
+    public void playPageCancel(View view){
+        Intent cancelIntent = new Intent(this, Main.class);
+        startActivity(cancelIntent);
+    }
 
-    public void playpageCancel(View view){//cancel button on PlayPage
-        Intent intent = new Intent(this, Main.class);
-        startActivity(intent);  //go to Main
+    public void playPageSearch(View view){
+        Intent searchIntent = new Intent(this, spotifySearch.class);
+        startActivity(searchIntent);
     }
 
 }

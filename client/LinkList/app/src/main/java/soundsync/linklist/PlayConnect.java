@@ -25,13 +25,13 @@ public class PlayConnect extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.lobbyName);
 
 
-        String message = editText.getText().toString();
+        String message = Client.joinRoom(Integer.parseInt(editText.getText().toString()));
         intent.putExtra(EXTRA_MESSAGE, message);
         editText.setText("");
         startActivity(intent);  //go to HostPage
     }
     public void playCancel(View view){//cancel button on PlayConnect
-        Intent intent = new Intent(this, Main.class);
-        startActivity(intent);  //go to Main
+        Intent playIntent = new Intent(this, Main.class);
+        startActivity(playIntent);  //go to Main
     }
 }

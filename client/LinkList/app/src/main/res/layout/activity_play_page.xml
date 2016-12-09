@@ -79,28 +79,37 @@
         android:text="Song Queue:"
         />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:id="@+id/listView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/queueTitle"
-        android:layout_marginBottom="42dp">
-
-
-    </ListView>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:onClick="playpageCancel"
+        android:onClick="playPageCancel"
         android:id="@+id/HostCancel"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="search"
+        android:onClick="playPageSearch"
+        android:id="@+id/search"
+        android:layout_below="@+id/listView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="285dp"
+        android:paddingTop="20dp"
+        android:id="@+id/listView"
+        android:layout_below="@+id/queueTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+    </ListView>
 
     <!--   <Button
            android:id="@+id/queue"

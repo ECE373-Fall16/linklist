@@ -12,8 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
         <activity
             android:name=".Splash"
             android:label="@string/app_name">
@@ -25,14 +23,15 @@
         </activity>
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".HostPage" />
         <!-- <activity android:name=".ServerLogin" /> -->
         <activity android:name=".HostConnect" />
         <activity android:name=".PlayConnect" />
         <activity android:name=".PlayPage" />
         <activity android:name=".Queue" />
-        <activity android:name=".Main"></activity>
+        <activity android:name=".Main" />
+        <activity android:name=".spotifySearch"></activity>
     </application>
 
 </manifest>

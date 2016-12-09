@@ -37,6 +37,7 @@ public class HostConnect extends AppCompatActivity {
         }
         else if(size.getText().toString().equals("")){
             Toast.makeText(this, "Please Enter Room Size", Toast.LENGTH_SHORT).show();
+            return;
         }
         else {
             client.sendLobbyInfo(lobby.getText().toString(), Integer.parseInt(size.getText().toString()));
