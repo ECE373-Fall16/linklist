@@ -112,16 +112,16 @@ public class MusicControler {
         if(t>=0)
             mediaPlayer.seekTo(t);
     }
-
+*/
     public static boolean getStatus(){
-        return mediaPlayer.isPlaying();
+        return mediaPlayer.getPlaybackState().isPlaying;
     }
 
-    public static int getDuration(){
-        return mediaPlayer.getDuration();
+    public static long getDuration(){
+        return mediaPlayer.getMetadata().currentTrack.durationMs;
     }
 
-    public static int getCurrentPosition(){
-        return mediaPlayer.getCurrentPosition();
-    }   */
+    public static long getCurrentPosition(){
+        return mediaPlayer.getPlaybackState().positionMs;
+    }
 }

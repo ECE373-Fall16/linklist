@@ -25,6 +25,7 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter{
     private ArrayList<String> list = new ArrayList<>();
     private List<Track> trackList;
     private int type=0;
+    Client client = Client.getClient();
    // private Button queueClick;
 
     public SearchAdapter(List<Track> tracklist, Context context){
@@ -74,15 +75,11 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter{
         queueClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendUri(trackList.get(position).uri);
+                client.makeSong(trackList.get(position).uri);
 
             }
         });
 
         return view;
-    }
-
-    public void sendUri(String uri){
-            Client.makeSong(uri);
     }
 }

@@ -85,8 +85,6 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
 
 
         //--------------FROM SPOTIFY-------------//
- /*       super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);     */
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,

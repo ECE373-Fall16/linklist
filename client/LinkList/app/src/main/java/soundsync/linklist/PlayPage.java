@@ -59,10 +59,6 @@ public class PlayPage extends AppCompatActivity {
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
 
-      //  mediaPlayer = mediaPlayer.create(this, R.raw.song);
-        //timebar = (SeekBar) findViewById(R.id.seekBar);         //timebar = seekbar
-       // cur = (TextView) findViewById(R.id.currentTime);        //cur = current time
-       // dur = (TextView) findViewById(R.id.duration);           //dur = duration
         name = (TextView) findViewById(R.id.songName);          //name = song info
         title = (TextView) findViewById(R.id.title);
         //lobbyName = (TextView) findViewById(R.id.hostName);
