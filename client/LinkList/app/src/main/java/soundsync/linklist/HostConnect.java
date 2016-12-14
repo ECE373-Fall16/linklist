@@ -30,7 +30,6 @@ public class HostConnect extends AppCompatActivity {
 
 
     public void hostPlay(View view){
-        Intent intent = new Intent(this, HostPage.class);
         EditText lobby = (EditText) findViewById(R.id.lobbyName);
         EditText size = (EditText) findViewById(R.id.lobbySize);
         if (lobby.getText().toString().equals("")){
@@ -44,10 +43,14 @@ public class HostConnect extends AppCompatActivity {
         else {
             client.sendLobbyInfo(lobby.getText().toString(), Integer.parseInt(size.getText().toString()));
         }
+
         String message = lobby.getText().toString();
+
+        Intent intent = new Intent(this, HostPage.class);
         intent.putExtra(EXTRA_MESSAGE, message);
 
-        startActivity(intent);  //go to HostPage
+        startActivity(intent);  //go to HostPage (muisc player page)
+        finish();               //kill this page after leaving
         lobby.setText("");
         size.setText("");
     }

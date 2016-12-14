@@ -13,6 +13,7 @@ package soundsync.linklist;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.util.Log;
 
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
@@ -24,7 +25,7 @@ public class Client {
     private static Context context;         //this would hold the context of the calling activity
     private static Client client = null;     //initialize client object as null
     private static XMLRPCClient xml;        //our global xml object
-    private static int connectFail=1;       //assume connection is failed (because we haven't connected yet)
+    public static int connectFail=1;       //assume connection is failed (because we haven't connected yet)
     private static int hostId = 1234;       //hard coded host id, will be gernerated by server later
     private static int roomId = -1;              //roomId delivered upon room creation
     private static int userID = 1234;
@@ -60,7 +61,8 @@ public class Client {
             }
             else{
                 System.out.println("createClient failed in getClient \n connectFail= " + connectFail);
-                connectFail =1;}
+                client = null;
+                }
         }
         return client;
     }
@@ -71,6 +73,7 @@ public class Client {
             clientCreateThread.join(10000);
         } catch (InterruptedException e) {
             System.out.println("Client Thread Join Err: "+e);
+            connectFail = 2;
         }
 
 
@@ -101,36 +104,39 @@ public class Client {
     }
 
     public static String joinRoom(int joinID){
-        try {
-            roomId = joinID;
-            joinedRoomName = (String)xml.call("joinRoom", joinID, userID);
-            System.out.println("Joined Room: "+joinedRoomName);
-        } catch (XMLRPCException e) {
-            System.out.println("Failed to join room"+e);
-            e.printStackTrace();
+        if(connectFail==0) {
+            try {
+                roomId = joinID;
+                joinedRoomName = (String) xml.call("joinRoom", joinID, userID);
+                System.out.println("Joined Room: " + joinedRoomName);
+            } catch (XMLRPCException e) {
+                System.out.println("Failed to join room" + e);
+                e.printStackTrace();
+            } finally {
+                return joinedRoomName;
+            }
         }
-        finally {
-            return joinedRoomName;
-        }
+        else return "not connected to server";
     }
 
     public static String getJoinedRoomName(){
         return joinedRoomName;
     }
 
-    public static void makeSong(String uri){
+    public static int makeSong(String uri, String name, String artist, String album){
         try {
             if(roomId<0){
-                //make toast to warn about no room idea
-                return;
+                //not in a room
+                return 3;   //3==not in a room
             }
-            String retValue = (String)xml.call("makeSong", uri, roomId);
+            String retValue = (String)xml.call("makeSong", uri, name, artist, album, roomId);
             System.out.println("makeSong Success: " + retValue);
-            //System.out.println("roomId: "+ roomId);
+            return 0;   // 0 == success
 
         } catch (XMLRPCException e) {
             System.out.println("makeSong error: " + e);
             e.printStackTrace();
+            return 1; // 1 == xmlrpc exception
         }
     }
 
@@ -138,7 +144,7 @@ public class Client {
         String next = null;
         try {
             next =(String) xml.call("playNext", roomId);
-            System.out.println("Got Next Song"+next);
+            System.out.println("Got Next Song: "+next);
         } catch (XMLRPCException e) {
             e.printStackTrace();
         }
@@ -146,13 +152,13 @@ public class Client {
     }
 
     public static int getListSize(){
-        int size= 0;
+        int size = 0;
         try {
            size = (int) xml.call("getListSize", roomId);
             System.out.println("Got List size: "+size);
         } catch (XMLRPCException e) {
             e.printStackTrace();
-            System.out.println("Couldn't get size"+e);
+            System.out.println("Couldn't get size: "+e);
         }
         return size;
     }
@@ -162,7 +168,7 @@ public class Client {
         String songURI="";
         try {
             songURI = (String) xml.call("getSongURI", roomId, songNumber);
-            System.out.println("URI: "+ songURI);
+            System.out.println("[client]URI: "+ songURI);
         } catch (XMLRPCException e) {
             e.printStackTrace();
             System.out.println("songURI error: "+e);
@@ -171,6 +177,41 @@ public class Client {
         return songURI;
     }
 
+    public static String getSongName(int songNumber){
+        String songName="";
+        try {
+            songName = (String) xml.call("getSongName", roomId, songNumber);
+            Log.d("[client]getSongName: ",songName);
+        } catch (XMLRPCException e) {
+            e.printStackTrace();
+            Log.d("[client]getSongName er",e.toString());
+        }
+        return songName;
+    }
+
+    public static String getSongArtist(int songNumber){
+        String songArtist="";
+        try {
+            songArtist = (String) xml.call("getSongArtist", roomId, songNumber);
+            Log.d("[client]getSongArtist: ",songArtist);
+        } catch (XMLRPCException e) {
+            e.printStackTrace();
+            Log.d("[client]getArtist er",e.toString());
+        }
+        return songArtist;
+    }
+
+    public static String getSongAlbum(int songNumber){
+        String songAlbum="";
+        try {
+            songAlbum = (String) xml.call("getSongAlbum", roomId, songNumber);
+            Log.d("[client]getSongAlbum: ",songAlbum);
+        } catch (XMLRPCException e) {
+            e.printStackTrace();
+            Log.d("[client]getAlbum er",e.toString());
+        }
+        return songAlbum;
+    }
 
 
 }

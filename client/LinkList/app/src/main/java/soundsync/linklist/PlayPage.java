@@ -39,7 +39,8 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class PlayPage extends AppCompatActivity {
 
   //  private SeekBar timebar;
-    private TextView cur, dur, name, title;
+    private TextView cur, dur, name, title, queueTitle;
+    private ListView listView;
   //  private MediaPlayer mediaPlayer;
 //    private Handler hand = new Handler();
 
@@ -56,18 +57,22 @@ public class PlayPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_page);
 
+        client = Client.getClient();
+
         Intent intent = getIntent();
         String lobby = intent.getStringExtra(EXTRA_MESSAGE);
 
+        listView = (ListView) findViewById(R.id.listView);
         name = (TextView) findViewById(R.id.songName);          //name = song info
         title = (TextView) findViewById(R.id.title);
+        queueTitle = (TextView) findViewById(R.id.queueTitle);
         //lobbyName = (TextView) findViewById(R.id.hostName);
         // viewQueue = (Button) findViewById(R.id.queue);
 
         api.setAccessToken(MusicControler.getAccessToken());
         spotify = api.getService();
 
-        name.setText(String.format("Current Song"));
+      //  name.setText(String.format("Current Song"));
 
         title.setText("Connected to lobby: " + Client.getJoinedRoomName());
 
@@ -82,28 +87,6 @@ public class PlayPage extends AppCompatActivity {
   //      timebar.setMax(mediaPlayer.getDuration());
    //     timebar.setProgress(mediaPlayer.getCurrentPosition());
         //hand.postDelayed(UpdateSongTime,100);
-
-
-   /*     int listSize = Client.getListSize();
-        for (int i = 0; i < listSize; i++) {
-            spotify.searchTracks(Client.getSongURI(i), new SpotifyCallback<TracksPager>() {
-                @Override
-                public void success(TracksPager tracksPager, Response response) {
-                    listAdd(tracksPager.tracks.items.get(0));
-                }
-                @Override
-                public void failure(SpotifyError error) {
-                    Log.d("URI Search failure", String.valueOf(error));
-                }
-            });
-
-        }
-
-        SearchAdapter adapter = new SearchAdapter(queuedTracks, PlayPage.this, 1);
-
-
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);   */
 
 
       /*  private Runnable UpdateSongTime = new Runnable() {
@@ -124,7 +107,17 @@ public class PlayPage extends AppCompatActivity {
             }
             return super.onKeyDown(keyCode, event);
         }   */
+
+
+
     }
+
+    public void onResume(){
+        super.onResume();
+        refreshList();
+    }
+
+
     public void goToQueue(View view) {
         Intent intent = new Intent(this, Queue.class);
         startActivity(intent);
@@ -143,6 +136,50 @@ public class PlayPage extends AppCompatActivity {
     public void listAdd(Track track) {
         queuedTracks.add(ListCounter, track);
         ListCounter++;
+    }
+
+    public void refreshList(){
+        int listSize = client.getListSize();
+
+        ArrayList<String> songName = new ArrayList<>();
+        ArrayList<String> artist = new ArrayList<>();
+        ArrayList<String> album = new ArrayList<>();
+        if(listSize>0) {
+            for (int i = 0; i < listSize; i++) {
+                songName.add(client.getSongName(i));
+                artist.add(client.getSongArtist(i));
+                album.add(client.getSongAlbum(i));
+            }
+
+            SearchAdapter adapter = new SearchAdapter(songName, artist, album, PlayPage.this, 1);
+
+
+            // ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+        }
+    }
+
+    public void refreshList(View v){
+        int listSize = client.getListSize();
+
+        ArrayList<String> songName = new ArrayList<>();
+        ArrayList<String> artist = new ArrayList<>();
+        ArrayList<String> album = new ArrayList<>();
+        if(listSize>0) {
+            for (int i = 0; i < listSize; i++) {
+                System.out.println("[PlayPage]Song #: "+i+"; Song: "+client.getSongName(i));
+                songName.add(client.getSongName(i));
+                artist.add(client.getSongArtist(i));
+                album.add(client.getSongAlbum(i));
+
+            }
+
+            SearchAdapter adapter = new SearchAdapter(songName, artist, album, PlayPage.this, 1);
+
+
+            // ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+        }
     }
 
 
