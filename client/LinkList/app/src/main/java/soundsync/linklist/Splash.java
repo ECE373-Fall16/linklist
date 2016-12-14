@@ -85,8 +85,6 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
 
 
         //--------------FROM SPOTIFY-------------//
- /*       super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);     */
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -165,7 +163,7 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
     @Override
     public void onLoggedIn() {
         Log.d("SplashActivity", "User logged in");
-       // mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
+        //mPlayer.playUri(null, "spotify:track:7sSC2ndMmI1qGNbu8UXQuE", 0, 0);
       //  System.out.println(Metadata.);
         System.out.println("logged in on splash");
       /*  try {

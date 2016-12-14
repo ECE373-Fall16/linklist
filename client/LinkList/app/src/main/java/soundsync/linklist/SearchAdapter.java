@@ -24,22 +24,31 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter{
     private Context context;
     private ArrayList<String> list = new ArrayList<>();
     private List<Track> trackList;
+    private int type=0;
+    Client client = Client.getClient();
    // private Button queueClick;
 
-    public SearchAdapter(ArrayList<String> list, List<Track> tracklist, Context context){
+    public SearchAdapter(List<Track> tracklist, Context context){
         this.list = list;
         this.context = context;
         this.trackList = tracklist;
     }
 
+    public SearchAdapter(List<Track> tracklist, Context context, int type){
+        this.list = list;
+        this.context = context;
+        this.trackList = tracklist;
+        this.type = type;
+    }
+
     @Override
     public int getCount(){
-        return list.size();
+        return trackList.size();
     }
 
     @Override
     public Object getItem(int pos){
-        return list.get(pos);
+        return trackList.get(pos);
     }
 
     @Override
@@ -52,7 +61,10 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter{
         View view = convertView;
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.layout_search_item, null);
+            if(type==0)
+                view = inflater.inflate(R.layout.layout_search_item, null);
+            else
+                view = inflater.inflate(R.layout.layout_viewqueue_item, null);
         }
         Button queueClick = (Button)view.findViewById(R.id.addToQueue) ;
         TextView songName = (TextView)view.findViewById(R.id.queueSongName);
@@ -63,16 +75,11 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter{
         queueClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendUri(trackList.get(position).uri);
-
+                client.makeSong(trackList.get(position).uri);
 
             }
         });
 
         return view;
-    }
-
-    public void sendUri(String uri){
-            Client.makeSong(uri);
     }
 }
