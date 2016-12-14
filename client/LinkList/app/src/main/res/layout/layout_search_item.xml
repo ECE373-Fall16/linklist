@@ -1,36 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
     android:id="@+id/songItem">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/queueSongName"
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
-        android:paddingRight="20dp"
-        android:text="Song Name"
-        android:textSize="20dp"/>
+        android:layout_weight="1"
+        android:id="@+id/songDetails">
+     <TextView
+         android:layout_width="wrap_content"
+         android:id="@+id/queueSongName"
+         android:layout_height="wrap_content"
+         android:text="Song Name"
+         android:textSize="20dp"
+         android:maxHeight="25dp"
+         />
 
+        <TextView
+            android:id="@+id/subText"
+            android:text="Artist"
+            android:layout_below="@id/queueSongName"
+            android:paddingBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="20dp"
+            />
     <TextView
-        android:id="@+id/subText"
-        android:text="Artist"
-        android:layout_toRightOf="@id/queueSongName"
-
-        android:layout_centerInParent="true"
+        android:id="@+id/dash"
+        android:text=" - "
+        android:paddingBottom="5dp"
+        android:layout_below="@id/queueSongName"
+        android:layout_toRightOf="@id/subText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+
+        />
+    <TextView
+        android:id="@+id/albumText"
+        android:text="Album"
+        android:textStyle="italic"
+        android:paddingBottom="5dp"
+        android:layout_below="@id/queueSongName"
+        android:layout_toRightOf="@id/dash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="20dp"/>
+
+
+</RelativeLayout>
 
     <Button
         android:id="@+id/addToQueue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/songDetails"
         android:text="queue"
         android:onClick="sendUri" />
 
 
-</RelativeLayout>
+</LinearLayout>

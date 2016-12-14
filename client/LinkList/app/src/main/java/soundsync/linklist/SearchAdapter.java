@@ -66,17 +66,20 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter{
             else
                 view = inflater.inflate(R.layout.layout_viewqueue_item, null);
         }
-        Button queueClick = (Button)view.findViewById(R.id.addToQueue) ;
+        final Button queueClick = (Button)view.findViewById(R.id.addToQueue) ;
         TextView songName = (TextView)view.findViewById(R.id.queueSongName);
         TextView artist = (TextView)view.findViewById(R.id.subText);
+        TextView album = (TextView)view.findViewById(R.id.albumText);
+
         songName.setText(trackList.get(position).name);
         artist.setText(trackList.get(position).artists.get(0).name);
+        album.setText(trackList.get(position).album.name);
 
         queueClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 client.makeSong(trackList.get(position).uri);
-
+                queueClick.setEnabled(false);
             }
         });
 

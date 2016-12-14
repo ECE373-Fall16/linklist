@@ -192,7 +192,8 @@ public class Splash extends Activity implements SpotifyPlayer.NotificationCallba
     @Override
     public void onLoginFailed(int i) {
         Log.d("SplashActivity", "Login failed");
-
+        Intent a = new Intent(Splash.this, Main.class);
+        startActivity(a);
     }
 
     @Override

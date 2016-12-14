@@ -66,7 +66,6 @@ public class spotifySearch extends AppCompatActivity {
         public void oceanManSearch(View view) {
             SpotifyApi api = new SpotifyApi();
 
-            api.setAccessToken(MusicControler.getAccessToken());
             SpotifyService spotify = api.getService();
 
             spotify.searchTracks(Search(), new SpotifyCallback<TracksPager>() {
@@ -88,7 +87,7 @@ public class spotifySearch extends AppCompatActivity {
 
                 @Override
                 public void failure(SpotifyError error){
-                    Log.d("Oceanman Failure", error.toString());
+                    Log.d("Search Failure", error.toString());
                 }
             });
 
