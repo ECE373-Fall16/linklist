@@ -7,4 +7,8 @@ compiler:
 - gcc
 
 script:
+<<<<<<< HEAD
 - cd XML && make && make client
+=======
+- cd V1.0/code/XML && make
+>>>>>>> master
