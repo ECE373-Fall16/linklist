@@ -12,12 +12,14 @@ import java.util.ArrayList;
 
 public class Queue extends AppCompatActivity {
 
+    private Client client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue);
-
-        String[] songNames;
+        client = Client.getClient();
+      /*  String[] songNames;
 
 
         ArrayList<String> list = new ArrayList<String>();
@@ -30,7 +32,27 @@ public class Queue extends AppCompatActivity {
 
 
         ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter);   */
+        int listSize = client.getListSize();
+
+        ArrayList<String> songName = new ArrayList<>();
+        ArrayList<String> artist = new ArrayList<>();
+        ArrayList<String> album = new ArrayList<>();
+        if(listSize>0) {
+            for (int i = 0; i <= listSize; i++) {
+                System.out.println("[PlayPage]For loop index: "+i);
+                songName.add(client.getSongName(i));
+                artist.add(client.getSongArtist(i));
+                album.add(client.getSongAlbum(i));
+
+            }
+
+            SearchAdapter adapter = new SearchAdapter(songName, artist, album, Queue.this, 1);
+
+
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+        }
 
     }
 }

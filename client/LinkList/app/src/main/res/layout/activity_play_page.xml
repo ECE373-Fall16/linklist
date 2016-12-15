@@ -60,6 +60,8 @@
 
     <TextView
         android:id="@+id/songName"
+        android:clickable="true"
+        android:onClick="refreshList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
@@ -68,7 +70,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/title"
         android:paddingBottom="20dp"
-        android:text="Song name Here"/>
+        android:text="Click to Refresh"/>
 
     <TextView
         android:id="@+id/queueTitle"
@@ -101,10 +103,11 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="285dp"
-        android:paddingTop="20dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:id="@+id/listView"
-        android:layout_below="@+id/queueTitle"
+        android:layout_below="@id/queueTitle"
+        android:layout_above="@id/search"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 

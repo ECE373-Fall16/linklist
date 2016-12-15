@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -38,26 +39,35 @@ import retrofit.client.Response;
 public class spotifySearch extends AppCompatActivity {
 
         Button goBack;
+        EditText search;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_spotify_search);
 
             goBack = (Button)findViewById(R.id.goBack);
+            search = (EditText) findViewById(R.id.searchView);
 
             goBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     Intent intent = new Intent(spotifySearch.this, PlayPage.class);   //create intent to change to PlayPage (to be written)
                     startActivity(intent);
+                    finish();
                 }
             });
 
         }
+        protected void onResume(){
+            super.onResume();
+        }
+        protected void onPause(){
+            super.onPause();
+            search.setText("");
+        }
         //-----------------------SPOTIFY API---------------------------
 
         public String Search(){
-            EditText search = (EditText) findViewById(R.id.searchView);
             return search.getText().toString();
 
         }
@@ -66,7 +76,6 @@ public class spotifySearch extends AppCompatActivity {
         public void oceanManSearch(View view) {
             SpotifyApi api = new SpotifyApi();
 
-            api.setAccessToken(MusicControler.getAccessToken());
             SpotifyService spotify = api.getService();
 
             spotify.searchTracks(Search(), new SpotifyCallback<TracksPager>() {
@@ -84,13 +93,16 @@ public class spotifySearch extends AppCompatActivity {
                     listView.setAdapter(adapter);
 
 
+
                 }
 
                 @Override
                 public void failure(SpotifyError error){
-                    Log.d("Oceanman Failure", error.toString());
+                    Toast.makeText(spotifySearch.this, "Search Failed" , Toast.LENGTH_SHORT).show();
+                    Log.d("Search Failure", error.toString());
                 }
             });
+
 
         }
 

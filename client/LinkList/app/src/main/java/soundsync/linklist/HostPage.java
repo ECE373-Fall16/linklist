@@ -91,7 +91,6 @@ public class HostPage extends AppCompatActivity {
 
 
 
-
         //disable pause button before playing
 
         /****runs on play button click****/
@@ -120,7 +119,6 @@ public class HostPage extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 music.playNextSong(client.playNext());
-               // playing = !music.getStatus();            //update playing status
             }
         });
 

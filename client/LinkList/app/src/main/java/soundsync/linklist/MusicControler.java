@@ -65,7 +65,7 @@ public class MusicControler {
 
             @Override
             public void onError(Error error) {
-                System.out.print("we fucked it");
+                System.out.println("we fucked it");
             }
         };
         mediaPlayer.resume(callback);
@@ -80,7 +80,7 @@ public class MusicControler {
 
               @Override
               public void onError(Error error) {
-                    System.out.print("we fucked it");
+                    System.out.println("we fucked it");
               }
           };
           mediaPlayer.pause(callback);
