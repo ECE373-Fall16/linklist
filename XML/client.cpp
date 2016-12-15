@@ -31,8 +31,8 @@ main(int argc, char **) {
 	xmlrpc_c::value result12;
         string const serverUrl("http://104.196.192.226:8080/RPC2");
         string const methodName("makeSong");
-	char songName[30];
-	cin.getline(songName,30); 
+	char songName[30]= "URIIIII";
+ 
 	int user = 88;
         int room = 1234;
         cout << "Now attempting makeRoom" << endl;
