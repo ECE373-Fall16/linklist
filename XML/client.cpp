@@ -25,28 +25,48 @@ main(int argc, char **) {
 	xmlrpc_c::value result6;
 	xmlrpc_c::value result7;
 	xmlrpc_c::value result8;
-
+	xmlrpc_c::value	result9;
+	xmlrpc_c::value result10;	
+	xmlrpc_c::value result11;
+	xmlrpc_c::value result12;
         string const serverUrl("http://104.196.192.226:8080/RPC2");
         string const methodName("makeSong");
 	char songName[30];
 	cin.getline(songName,30); 
-	myClient.call(serverUrl, methodName, "si", &result, songName,1);
+	int user = 88;
+        int room = 1234;
+        cout << "Now attempting makeRoom" << endl;
+        myClient.call(serverUrl, "makeRoom","sii",&result3,songName,room,user);
+        int const serverResponse3((xmlrpc_c::value_int(result3)));
+        cout << serverResponse3 << endl;
+        cout << '\n' << '\n';
+	
+
+
+
+	string song = "spotify:track:2cmRpmO04TLaKPzmAzySYZ";
+	myClient.call(serverUrl, methodName, "ssssi", &result, songName,"Name","Artist","Album",0);
         string const serverResponse((xmlrpc_c::value_string(result)));
         cout << serverResponse << endl;
 	cout << '\n' << '\n';
+
+	myClient.call(serverUrl,methodName,"ssssi", &result9,songName,"Name","Artist","Album",0);
+	string const serverResponse9((xmlrpc_c::value_string(result9)));
+	cout << serverResponse9;
+	cout << '\n'<< '\n';
 	
 	cout << "Now attempting connection" << endl;
 	myClient.call(serverUrl, "connection",&result2);
 	int const serverResponse2((xmlrpc_c::value_int(result2)));
 	cout <<serverResponse2 <<endl;
 //////////////////////////////////////////////////
-	int user = 88;
-	int room = 1234;
-	cout << "Now attempting makeRoom" << endl;
-	myClient.call(serverUrl, "makeRoom","sii",&result3,songName,room,user);
-	int const serverResponse3((xmlrpc_c::value_int(result3)));
-	cout << serverResponse3 << endl;
-	cout << '\n' << '\n';	
+//	int user = 88;
+//	int room = 1234;
+	//cout << "Now attempting makeRoom" << endl;
+//	myClient.call(serverUrl, "makeRoom","sii",&result3,songName,room,user);
+//	int const serverResponse3((xmlrpc_c::value_int(result3)));
+//	cout << serverResponse3 << endl;
+//	cout << '\n' << '\n';	
 
 	cout << "Now attempting joinRoom" << endl;
 	myClient.call(serverUrl, "joinRoom","ii", &result4,room,user);
@@ -67,16 +87,34 @@ main(int argc, char **) {
 	cout << '\n' <<	 '\n';
 
 	cout << "Now attempting getListSize" << endl;
-	myClient.call(serverUrl,"getListSize","i",&result7,room);
+	myClient.call(serverUrl,"getListSize","i",&result7,0);
 	int const serverResponse7((xmlrpc_c::value_int(result7)));
 	cout << serverResponse7 << endl;
 	cout <<'\n'<<'\n';
 
 	cout << "Now attempting getSongURI" << endl;
-	myClient.call(serverUrl,"getSongURI","ii",&result8,0,serverResponse7 - 1);
+	myClient.call(serverUrl,"getSongURI","ii",&result8,0, 1);
 	string const serverResponse8((xmlrpc_c::value_string(result8)));
 	cout << serverResponse8 << endl;
 	cout <<'\n'<<'\n';
+
+        cout << "Now attempting getSongName" << endl;
+        myClient.call(serverUrl,"getSongName","ii",&result12,0, 1);
+        string const serverResponse12((xmlrpc_c::value_string(result12)));
+        cout << serverResponse12 << endl;
+        cout <<'\n'<<'\n';
+
+        cout << "Now attempting getSongArtist" << endl;
+        myClient.call(serverUrl,"getSongArtist","ii",&result10,0, 1);
+        string const serverResponse10((xmlrpc_c::value_string(result10)));
+        cout << serverResponse10 << endl;
+        cout <<'\n'<<'\n';
+
+        cout << "Now attempting getSongAlbum" << endl;
+        myClient.call(serverUrl,"getSongAlbum","ii",&result11,0, 1);
+        string const serverResponse11((xmlrpc_c::value_string(result11)));
+        cout << serverResponse11 << endl;
+        cout <<'\n'<<'\n';
 
     } catch (exception const& e) {
         cerr << "Client threw error: " << e.what() << endl;

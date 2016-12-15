@@ -96,6 +96,9 @@ public:
 	string const returnMessage = roomArray[roomID%100].playlist.deleteSongFirst();//TODO//if delete first returns string
 	cout << "in room " <<roomID<< endl;
 //	cout << returnMessage << endl;
+//	cout <<"of size " << endl;
+//	cout << roomArray[roomID].playlist.getPlaylistSize() << endl;
+//	cout << returnMessage << endl;
 	*retvalP = xmlrpc_c::value_string(returnMessage);
 	}
 };
@@ -128,7 +131,7 @@ public:
         // signature and help strings are documentation -- the client
         // can query this information with a system.methodSignature and
         // system.methodHelp RPC.
-        this->_signature = "s:si";
+        this->_signature = "s:ssssi";
             // method's result and two arguments are integers
         this->_help = "get a song from a client";
     }
@@ -137,14 +140,17 @@ public:
             xmlrpc_c::value *   const  retvalP) {
         
         string const songURI(paramList.getString(0));
-        int    const roomID(paramList.getInt(1));
-        paramList.verifyEnd(2);
+	string const songName(paramList.getString(1));
+	string const songArtist(paramList.getString(2));
+	string const songAlbum(paramList.getString(3));
+        int    const roomID(paramList.getInt(4));
+        paramList.verifyEnd(5);
 	cout << '\n' << '\n';
 	cout << "Received Song:" << '\n';
-        cout << songURI << endl;
+        cout << songURI <<","<<songName << ","<<songArtist<<","<<songAlbum<< endl;
 	cout << "Received roomID:" << '\n';
         cout << roomID  << endl;
-	roomArray[roomID %100].playlist.addSongBack(songURI);////////////seg faults sometimes TODO	
+	roomArray[roomID %100].playlist.addSongBack(songURI,songName,songArtist,songAlbum);////////////seg faults sometimes TODO	
 
 	cout << endl;
         string const returnMessage = "Hello Human, I Am Server";
@@ -185,6 +191,7 @@ void execute(xmlrpc_c::paramList const& paramList, xmlrpc_c::value * const retva
 	paramList.verifyEnd(1);
 	int const returnMessage = roomArray[roomID %100].playlist.getListSize();
 	cout << "we gave em a number yo"<< endl;
+	cout << returnMessage << endl;
 	*retvalP = xmlrpc_c::value_int(returnMessage);
 }
 };
@@ -200,8 +207,61 @@ void  execute(xmlrpc_c::paramList const& paramList, xmlrpc_c::value * retvalP) {
 	int roomID = paramList.getInt(0);
 	int songNum = paramList.getInt(1);
 	paramList.verifyEnd(2);
-	cout << "Yo it's ya boy" << endl;
+	cout << "Yo it's ya boy URI" << endl;
 	string returnMessage = roomArray[roomID].playlist.getSongURI(songNum);
+	cout << returnMessage << endl;
+	*retvalP = xmlrpc_c::value_string(returnMessage);
+}
+};
+class getSongName : public xmlrpc_c::method {
+public:
+        getSongName() {
+        this->_signature = "s:ii";
+        this->_help = "Returns track Name given location in list.";
+}
+
+void  execute(xmlrpc_c::paramList const& paramList, xmlrpc_c::value * retvalP) {
+        int roomID = paramList.getInt(0);
+        int songNum = paramList.getInt(1);
+        paramList.verifyEnd(2);
+        cout << "Yo it's ya boy Name" << endl;
+        string returnMessage = roomArray[roomID].playlist.getSongName(songNum);
+        cout << returnMessage << endl;
+        *retvalP = xmlrpc_c::value_string(returnMessage);
+}
+};
+class getSongArtist : public xmlrpc_c::method {
+public:
+        getSongArtist() {
+        this->_signature = "s:ii";
+        this->_help = "Returns track Artist given location in list.";
+}
+
+void  execute(xmlrpc_c::paramList const& paramList, xmlrpc_c::value * retvalP) {
+        int roomID = paramList.getInt(0);
+        int songNum = paramList.getInt(1);
+        paramList.verifyEnd(2);
+        cout << "Yo it's ya boy Artist" << endl;
+        string returnMessage = roomArray[roomID].playlist.getSongArtist(songNum);
+        cout << returnMessage << endl;
+        *retvalP = xmlrpc_c::value_string(returnMessage);
+}
+};
+class getSongAlbum : public xmlrpc_c::method {
+public:
+        getSongAlbum() {
+        this->_signature = "s:ii";
+        this->_help = "Returns track Album given location in list.";
+}
+
+void  execute(xmlrpc_c::paramList const& paramList, xmlrpc_c::value * retvalP) {
+        int roomID = paramList.getInt(0);
+        int songNum = paramList.getInt(1);
+        paramList.verifyEnd(2);
+        cout << "Yo it's ya boy album" << endl;
+        string returnMessage = roomArray[roomID].playlist.getSongAlbum(songNum);
+        cout << returnMessage << endl;
+        *retvalP = xmlrpc_c::value_string(returnMessage);
 }
 };
 
@@ -215,7 +275,9 @@ try {
 	xmlrpc_c::methodPtr const joinRoomP(new joinRoom);
 	xmlrpc_c::methodPtr const playNextP(new playNext);
 	xmlrpc_c::methodPtr const destroyRoomP(new destroyRoom);
-
+	xmlrpc_c::methodPtr const getSongNameP(new getSongName);
+	xmlrpc_c::methodPtr const getSongArtistP(new getSongArtist);
+	xmlrpc_c::methodPtr const getSongAlbumP(new getSongAlbum);
 	///////////////////////////////////George's Methods above///////////////////////////////////////////////
         xmlrpc_c::methodPtr const makeSongP(new makeSong);
 	xmlrpc_c::methodPtr const connectP(new connection);
@@ -228,6 +290,9 @@ try {
 	myRegistry.addMethod("destroyRoom",destroyRoomP);
 	myRegistry.addMethod("getListSize",getListSizeP);
 	myRegistry.addMethod("getSongURI",getSongURIP);
+	myRegistry.addMethod("getSongName",getSongNameP);
+	myRegistry.addMethod("getSongArtist",getSongArtistP);
+	myRegistry.addMethod("getSongAlbum",getSongAlbumP);
 	//////////////////////////////////George's Methods above////////////////////////////////////////////////
 	myRegistry.addMethod("makeSong", makeSongP);
 	myRegistry.addMethod("connection", connectP);        
