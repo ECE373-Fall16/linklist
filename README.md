@@ -1,4 +1,4 @@
-# linklist
+# LinkList
 The Android app for collaborative dynamic playlists.
 Hosting a party? Study session? Carpooling? Let LinkList enhance your musical experience by giving everyone the power to contribute.
 Host a room. Let your guests join. Now everyone can search Spotify to add songs to one great playlist that fits everyone's tastes.
